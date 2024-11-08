@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>ダッシュボード</h2>
+        <form method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" name="logout" class="btn btn-outline-danger" onclick="return confirm('ログアウトしてもよろしいですか？')">ログアウト</button>
+        </form>
+    </div>
+    
+    <!-- 他のダッシュボードコンテンツ -->
+    <div class="categories">
+        <h2>カテゴリー</h2>
+        <ul>
+            {% for category in categories %}
+                <li>
+                    {{ category.name }}
+                    <form method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="category_id" value="{{ category.id }}">
+                        <input type="hidden" name="delete_category" value="true">
+                        <button type="submit" onclick="return confirm('{{ category.name }}を削除してもよろしいですか？')">削除</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="category-form">
+            <p>カテゴリーの追加<p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="articles">
+        {% for post in posts %}
+        <article>
+            <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+            <p class="meta">
+                カテゴリー: {{ post.category.name }} |
+                投稿日: {{ post.created_at|date:"Y/m/d" }}
+            </p>
+        </article>
+        {% empty %}
+        <p>記事がありません。</p>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+        {% endif %}
+        
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
