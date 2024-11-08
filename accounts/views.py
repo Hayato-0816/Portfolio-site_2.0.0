@@ -27,6 +27,9 @@ class DashboardView(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     paginate_by = 10
 
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
@@ -34,18 +37,25 @@ class DashboardView(LoginRequiredMixin, ListView):
         return context
 
     def post(self, request, *args, **kwargs):
+        # object_listを設定
+        self.object_list = self.get_queryset()
+        
+        if 'logout' in request.POST:
+            logout(request)
+            return redirect('accounts:login')
+
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('blog:home')  # リダイレクト先を適切に設定
-        
+            return redirect('blog:home')
+
         if 'delete_category' in request.POST:
             category_id = request.POST.get('category_id')
             category = get_object_or_404(Category, id=category_id)
             category.delete()
             return redirect('blog:home')
-        
-        # フォームが無効な場合は、エラーメッセージとともに再表示
+
+        # フォームが無効な場合
         context = self.get_context_data()
         context['form'] = form
         return render(request, self.template_name, context)
