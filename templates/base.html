@@ -3,25 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300&family=Zen+Kurenaido&display=swap" rel="stylesheet">
     <title>{% block title %}My Blog{% endblock %}</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base/base.css' %}">
+    {% block head %}{% endblock %}
 </head>
+
 <body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="{% url 'blog:blog_home' %}">Blog</a>
-        </nav>
-    </header>
+    <div class="outborder">
+        <div class="a"></div>
+        <header>
+            <div class="headerLogo">
+                <img src="{% static 'image/headerLogo.png' %}" alt="logo">
+            </div>
+            <nav class="zen-kurenaido-regular">
+                <div class="nav_item {% if request.path == '/' %}active{% endif %}">
+                    <a href="/">
+                        <img src="{% static 'image/home_icon.png' %}" alt="home">
+                        Home
+                    </a>
+                </div>
+                <div class="nav_item {% if 'blog' in request.path %}active{% endif %}">
+                    <a href="{% url 'blog:blog_home' %}">Blog</a>
+                </div>
+            </nav>
+        </header>
+    
+        <main>
+            <!-- <div class="background_container"></div> -->
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-
-    <footer>
-        <p>&copy; 2024 My Blog</p>
+    <footer class="zen-kaku-gothic-antique-regular">
+        <p>&copy; 2024 Machida Hayato</p>
     </footer>
 
     <!-- <script src="{% static 'myapp/js/main.js' %}"></script> -->

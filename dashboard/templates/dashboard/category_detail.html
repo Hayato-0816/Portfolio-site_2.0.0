@@ -1,0 +1,58 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<div class="categories">
+    <h2>カテゴリー</h2>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <span id="category-name-{{ category.id }}">{{ category.name }}</span>
+                <!-- 編集フォーム（デフォルトは非表示） -->
+                <form method="post" style="display: none;" id="edit-form-{{ category.id }}" class="edit-category-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="category_id" value="{{ category.id }}">
+                    <input type="hidden" name="edit_category" value="true">
+                    <input type="text" name="new_name" value="{{ category.name }}" class="form-control d-inline" style="width: auto;">
+                    <button type="submit" class="btn btn-sm btn-success">保存</button>
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="toggleEditForm('{{ category.id }}', false)">キャンセル</button>
+                </form>
+                <!-- ボタングループ -->
+                <div class="btn-group" role="group" style="display: inline;">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="toggleEditForm('{{ category.id }}', true)">編集</button>
+                    <form method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="category_id" value="{{ category.id }}">
+                        <input type="hidden" name="delete_category" value="true">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('{{ category.name }}を削除してもよろしいですか？')">削除</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="category-form">
+        <p>カテゴリーの追加<p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">保存</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleEditForm(categoryId, show) {
+    const nameElement = document.getElementById(`category-name-${categoryId}`);
+    const formElement = document.getElementById(`edit-form-${categoryId}`);
+    
+    if (show) {
+        nameElement.style.display = 'none';
+        formElement.style.display = 'inline';
+    } else {
+        nameElement.style.display = 'inline';
+        formElement.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

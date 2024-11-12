@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block head %}  {# baseテンプレートにheadブロックを追加する必要があります #}
+<link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock %}
 {% block title %}記事一覧 - {{ block.super }}{% endblock %}
 
 {% block content %}

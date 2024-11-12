@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="article-detail">
+    <!-- <div class="categories">
+        <p>カテゴリー</p>
+        <ul>
+            {% for category in categories %}
+                <li>
+                    {{ category.name }}
+            {% endfor %}
+        </ul>
+    </div> -->
+
+    <h1>{{ post.title }}</h1>
+    <div class="articles">
+        <article>
+            <p class="meta">
+                カテゴリー: {{ post.category.name }} |
+                投稿日: {{ post.created_at|date:"Y/m/d" }}
+            </p>
+            <div class="content">
+                {{ post.content|linebreaks }}
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}
