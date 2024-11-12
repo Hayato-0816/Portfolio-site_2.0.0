@@ -34,6 +34,7 @@ class DashboardView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['form'] = CategoryForm()
+        context['is_dashboard'] = True
         return context
 
     def post(self, request, *args, **kwargs):
