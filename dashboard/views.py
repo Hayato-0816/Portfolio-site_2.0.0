@@ -9,21 +9,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CategoryForm
 
 class LoginView(LoginView):
-    template_name = 'accounts/login.html'  # テンプレートのパスを明示的に指定
+    template_name = 'dashboard/login.html'  # テンプレートのパスを明示的に指定
     redirect_authenticated_user = True  # すでにログインしているユーザーをリダイレクト
     
     def get_success_url(self):
-        return reverse_lazy('accounts:dashboard')  # ログイン後のリダイレクト先
+        return reverse_lazy('dashboard:dashboard')  # ログイン後のリダイレクト先
 
 class SignupView(TemplateView):
-    template_name = 'accounts/signup.html'
+    template_name = 'dashboard/signup.html'
 
 class PasswordResetView(TemplateView):
-    template_name = 'accounts/password_reset.html'
+    template_name = 'dashboard/password_reset.html'
 
 class DashboardView(LoginRequiredMixin, ListView):
     model = Post
-    template_name = 'accounts/dashboard.html'
+    template_name = 'dashboard/dashboard.html'
     context_object_name = 'posts'
     paginate_by = 10
 
@@ -42,7 +42,7 @@ class DashboardView(LoginRequiredMixin, ListView):
         
         if 'logout' in request.POST:
             logout(request)
-            return redirect('accounts:login')
+            return redirect('dashboard:login')
 
         form = CategoryForm(request.POST)
         if form.is_valid():
@@ -63,7 +63,7 @@ class DashboardView(LoginRequiredMixin, ListView):
     def logout(self, request, *args, **kwargs):
         if 'logout' in request.POST:
             logout(request)
-            return redirect('accounts:login')
+            return redirect('dashboard:login')
         return super().post(request, *args, **kwargs)
 
         

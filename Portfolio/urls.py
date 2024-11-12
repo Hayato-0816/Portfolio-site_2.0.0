@@ -25,5 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='base.html'), name='base'),
     path('blog/', include('blog.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('dashboard/', include('dashboard.urls')),
+    path('about/', include('about.urls')),
+    path('gallery/', include('gallery.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
