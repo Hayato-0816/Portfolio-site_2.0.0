@@ -19,7 +19,6 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
     
-    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = japanese_slugify(self.name)

@@ -14,31 +14,33 @@
 </head>
 
 <body>
-    <div class="outborder">
-        <div class="a"></div>
-        <header>
-            <div class="headerLogo">
-                <img src="{% static 'image/headerLogo.png' %}" alt="logo">
+    <header>
+        <div class="headerLogo">
+            <img src="{% static 'image/headerLogo.png' %}" alt="logo">
+        </div>
+        <nav class="zen-kurenaido-regular">
+            <div class="nav_item {% if request.path == '/' %}active{% endif %}">
+                <a href="/">
+                    <img src="{% static 'image/home_icon.png' %}" alt="home">
+                    Home
+                </a>
             </div>
-            <nav class="zen-kurenaido-regular">
-                <div class="nav_item {% if request.path == '/' %}active{% endif %}">
-                    <a href="/">
-                        <img src="{% static 'image/home_icon.png' %}" alt="home">
-                        Home
-                    </a>
-                </div>
-                <div class="nav_item {% if 'blog' in request.path %}active{% endif %}">
-                    <a href="{% url 'blog:blog_home' %}">Blog</a>
-                </div>
-            </nav>
-        </header>
-    
-        <main>
-            <!-- <div class="background_container"></div> -->
-            {% block content %}
-            {% endblock %}
-        </main>
-    </div>
+            <div class="nav_item {% if 'blog' in request.path %}active{% endif %}">
+                <a href="{% url 'blog:blog_home' %}">Blog</a>
+            </div>
+            <div class="nav_item {% if 'about' in request.path %}active{% endif %}">
+                <a href="{% url 'about:about' %}">About</a>
+            </div>
+            <div class="nav_item {% if 'gallery' in request.path %}active{% endif %}">
+                <a href="{% url 'gallery:gallery' %}">Gallery</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
     <footer class="zen-kaku-gothic-antique-regular">
         <p>&copy; 2024 Machida Hayato</p>
