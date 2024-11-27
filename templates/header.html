@@ -1,0 +1,48 @@
+{% load static %}
+<header>
+    <div class="headerLogo">
+        <img src="{% static 'image/headerLogo.png' %}" alt="logo">
+    </div>
+    <nav>
+        <div class="nav_item {% if request.path == '/' %}active{% endif %}">
+            <a href="{% url 'home:home' %}">
+                <div class="nav_name nav_home">
+                    <img src="{% static 'image/home_icon.png' %}" alt="home">
+                    <div>Home</div>
+                </div>
+            </a>
+        </div>
+        <div class="nav_item {% if 'about' in request.path %}active{% endif %}">
+            <a href="{% url 'about:about' %}">
+                <div class="nav_name nav_no_icon">
+                    <div class="japanese">自分のこと</div>
+                    <div class="english">About me</div>
+                </div>
+            </a>
+        </div>
+        <div class="nav_item {% if 'gallery' in request.path %}active{% endif %}">
+            <a href="{% url 'gallery:gallery' %}">
+                <div class="nav_name nav_no_icon">
+                    <div class="japanese">制作実績</div>
+                    <div class="english">Gallery</div>
+                </div>
+            </a>
+        </div>
+        <div class="nav_item {% if 'blog' in request.path %}active{% endif %}">
+            <a href="{% url 'blog:blog' %}">
+                <div class="nav_name nav_no_icon">
+                    <div class="japanese">学習ノート</div>
+                    <div class="english">Blog</div>
+                </div>
+            </a>
+        </div>
+        <div class="nav_item">
+            <a href="">
+                <div class="nav_name nav_no_icon">
+                    <div class="japanese">お問い合わせ</div>
+                    <div class="english">Contact</div>
+                </div>
+            </a>
+        </div>
+    </nav>
+</header>

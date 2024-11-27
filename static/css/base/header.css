@@ -1,0 +1,141 @@
+/* header(navbar) ////////////////////////////////////////////////////////////////////////////////////// */
+header{
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    top: 10px;
+    bottom: 20px;
+    width: 200px;
+
+    z-index: 1000;
+}
+
+.headerLogo{
+    width: 100%;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    position: absolute;
+    left: 4%;
+    bottom: 12%;
+    width: 96%;
+    height: 40%;
+}
+
+.nav_item{
+    width: 100%;
+    height: 15%;
+
+    border-radius: 10px 0 0 10px;
+}
+
+.nav_item a{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 10px 0 0 10px;
+
+    transition: all .2s ease;
+}
+.nav_item.active a {
+    color: #ff0000;
+    background-color: #F7F7F7;
+    box-shadow: 
+        inset 2px 2px 4px 0 #d0d0cf20,
+        inset -6px -4px 4px 0 #d0d0cf20,
+        inset 0 2px 5px 0 #d0d0cf90;
+}
+.nav_item a:hover{
+    color: #ff0000;
+    background-color: #F7F7F7;
+    box-shadow: 
+        inset 2px 2px 4px 0 #d0d0cf20,
+        inset -6px -4px 4px 0 #d0d0cf20,
+        inset 0 2px 5px 0 #d0d0cf90;
+}
+.nav_item a .nav_name{
+    position: relative;
+    left: 22.9%;
+}
+.nav_item a .nav_no_icon{
+    height: 58%;
+}
+
+.nav_home{
+    display: flex;
+}
+.nav_home img{
+    text-align: bottom;
+}
+.nav_home div{
+    margin-left: 5px;
+}
+
+
+
+/* .home_item_position{
+    display: flex;
+    justify-content: center;
+} */
+/* .home_item_position div{
+    font-size: 14px;
+}
+
+.home_item_position,.nav_item_position{
+    position: relative;
+    left: 22.9%; */
+/* } */
+
+/* .nav_item a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    font-size: 14px;
+
+} */
+
+/* .nav_item .item_position{
+    display: flex;
+    margin-left: 22.9%;
+} */
+
+/* .nav_item a img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+
+ */
+
+.japanese,.nav_home{
+    font-size: 14px;
+    font-family: "Zen Maru Gothic", serif;
+    font-weight: 300;
+    letter-spacing: 5px;
+}
+
+.english{
+    position: relative;
+    top: -5px;
+    font-size: 10px;
+    font-family: "Zen Maru Gothic", serif;
+    font-weight: 400;
+    color: #00000050;
+    letter-spacing: 5px;
+}

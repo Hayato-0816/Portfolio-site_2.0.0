@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Blog{% endblock %}</title>
+    <title>{% block title %}Machida Hayato{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
         <nav>
-            <a href="{% url 'dashboard:dashboard' %}">Home</a>
-            <a href="{% url 'dashboard:blog_management' %}">Blog</a>
+            <a href="{% url 'dashboard:dashboard' %}">Dashboard</a>
+            <a href="{% url 'dashboard:about' %}">about</a>
+            <a href="{% url 'dashboard:blog' %}">blog</a>
+            <a href="{% url 'dashboard:gallery' %}">gallery</a>
         </nav>
     </header>
 

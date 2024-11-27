@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/blog/blog.css' %}">
+{% endblock %}
+<!-- {% block title %}記事一覧{% endblock %} -->
+
+{% block content %}
+{% include 'header.html' %}
+<section>
+    <h1>Blog</h1>
+    <div class="container">
+        <div class="article-list">
+            {% for post in posts %}
+            <a href="{{ post.get_absolute_url }}" class="blog-article">
+                <article>
+                    <h2>{{ post.title }}</h2>
+                    <p class="meta">
+                        カテゴリー: {{ post.category.name }} |
+                        投稿日: {{ post.created_at|date:"Y/m/d" }}
+                    </p>
+                    <div class="content-preview">
+                        {{ post.content|truncatewords:30|truncatechars:100 }}
+                    </div>
+                </article>
+            </a>
+            {% empty %}
+            <p class="no-article">記事がありません。</p>
+            {% endfor %}
+        </div>
+        <div class="categories">
+            <p>カテゴリー</p>
+            <ul>
+                {% for category in categories %}
+                <li>
+                    {{ category.name }}
+                {% endfor %}
+            </ul>
+            <a href="{% url 'blog:category_list' %}">カテゴリー一覧</a>
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/image-position.js' %}"></script>
+<script src="{% static 'js/article-height.js' %}"></script>
+{% endblock %}

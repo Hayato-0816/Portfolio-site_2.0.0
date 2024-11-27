@@ -8,20 +8,43 @@
 body {
     width: 100vw;
     height: 100vh;
-    background-color: #fff;
+    background-color: transparent;
     z-index: -100;
 }
 
+body::-webkit-scrollbar{
+    display: none;
+}
+
 .outborder{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     position: fixed;
     top: 10px;
-    left: 10px;
+    left: 200px;
     right: 20px;
     bottom: 20px;
     border-radius: 15px;
     
-    background-color: #F1F1F1;
+    background-color: transparent;
     overflow: scroll;
+
+    background-color: #f5f5f5;
+    /* background-image:  */
+    /* 最前面の細い十字マーク */
+    /* linear-gradient(to right, transparent 6px, #f0f0f0 6px, #f0f0f0 7px, transparent 7px), */
+    /* linear-gradient(to bottom, transparent 6px, #f0f0f0 6px, #f0f0f0 7px, transparent 7px), */
+    /* 15個ごとの大きい十字マーク */
+    /* linear-gradient(to right, transparent 104px, #EDEDED 104px, #EDEDED 106px, transparent 106px), */
+    /* linear-gradient(to bottom, transparent 104px, #EDEDED 104px, #EDEDED 106px, transparent 106px); */
+    /* background-size:  */
+    /* 11px 11px,  小さい十字マークのグリッド */
+    /* 11px 11px, */
+    /* 165px 165px, 大きい十字マークのグリッド (14px × 15) */
+    /* 165px 165px; */
+    background-position: center;
     box-shadow: inset 1px 1px 25px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -34,126 +57,44 @@ a{
     color: #3F3F3F;
 }
 
+ul, li{
+    list-style: none;
+}
+
 /* font ////////////////////////////////////////////////////////////////////////////////////// */
-.zen-kaku-gothic-antique-light {
-    font-family: "Zen Kaku Gothic Antique", sans-serif;
+@font-face {
+    font-family: "Zen Maru Gothic";
+    src: url("../../static/fonts/ZenMaruGothic-Regular.ttf");
+}
+
+.zen-maru-gothic-light {
+    font-family: "Zen Maru Gothic", serif;
     font-weight: 300;
     font-style: normal;
 }
 
-.zen-kaku-gothic-antique-regular {
-    font-family: "Zen Kaku Gothic Antique", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.zen-kurenaido-regular {
-    font-family: "Zen Kurenaido", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-
-/* header(navbar) ////////////////////////////////////////////////////////////////////////////////////// */
-header{
-    display: flex;
-    flex-direction: column;
-
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    bottom: 25px;
-    width: 14.58vw;
-
-    background-color: #FBFAF9;
-    border-radius: 10px;
-    box-shadow: 3px 4px 15px 3px rgba(0, 0, 0, 0.25);
-    z-index: 1000;
-}
-
-.headerLogo{
-    width: 100%;
-    height: 54px;
-    margin-top: 85px;
-    display: flex;
-    justify-content: center;
-}
-
-nav{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    position: absolute;
-    left: 2.14%;
-    bottom: 6%;
-    width: 97.86%;
-    height: 55%;
-}
-
-.nav_item{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 14.8%;
-
-    border-radius: 10px 0 0 10px;
-}
-
-.nav_item a{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 100%;
-
-    font-size: 14px;
-    letter-spacing: 5px;
-    border-radius: 10px 0 0 10px;
-
-    transition: all .2s ease;
-}
-
-.nav_item a img{
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-.nav_item.active a {
-    color: #ff0000;
-    background-color: #F7F7F7;
-    box-shadow: 
-        inset 2px 2px 4px 0 #d0d0cf20,
-        inset -6px -4px 4px 0 #d0d0cf20,
-        inset 0 2px 5px 0 #d0d0cf90;
-}
-
-.nav_item a:hover{
-    color: #ff0000;
-    background-color: #F7F7F7;
-    box-shadow: 
-        inset 2px 2px 4px 0 #d0d0cf20,
-        inset -6px -4px 4px 0 #d0d0cf20,
-        inset 0 2px 5px 0 #d0d0cf90;
-}
-
-
 /* main ////////////////////////////////////////////////////////////////////////////////////// */
 main{
-    width: 100%;
-    height: 100%;
+    display: flex;
+    flex: 1;
+    overflow: scroll;
+
+    /* position: absolute;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+    width: 87%;
+
+    border-radius: 10px; */
+
+
+    /* width: 84.66%;
+    height: 100%; */
 }
 
-/* .background_container {
-    width: 256px;
-    height: 128px;
-    background-image: url("{% static 'image/main_background.png' %}");
-    background-repeat: repeat;
-} */
+main::-webkit-scrollbar{
+    display: none;
+}
 
 /* footer ////////////////////////////////////////////////////////////////////////////////////// */
 footer{
@@ -161,6 +102,7 @@ footer{
     justify-content: flex-end;
     align-items: center;
 
+    height: 20px;
     position: fixed;
     bottom: 0;
     left: 10px;

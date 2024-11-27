@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="home_container zen-maru-gothic-light">
+    <div class="top_view">
+        <h1 class="top_view_h1">
+            <span>まちだ　はやと</span><span class="last_spacing">の</span>
+            <span class="h1_margin">ポートフォリオ</span>
+        </h1>
+        <div class="role_container">
+            <div class="role_line"></div>
+            <div class="role_container_inner">
+                <p class="role">Web Design</p>
+                <p class="role">Web Application</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

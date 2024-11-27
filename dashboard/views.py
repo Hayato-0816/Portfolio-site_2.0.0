@@ -9,22 +9,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CategoryForm
 
 class LoginView(LoginView):
-    template_name = 'dashboard/login.html'  # テンプレートのパスを明示的に指定
+    template_name = 'authentication/login.html'  # テンプレートのパスを明示的に指定
     redirect_authenticated_user = True  # すでにログインしているユーザーをリダイレクト
     
     def get_success_url(self):
         return reverse_lazy('dashboard:dashboard')  # ログイン後のリダイレクト先
 
 class SignupView(TemplateView):
-    template_name = 'dashboard/signup.html'
+    template_name = 'authentication/signup.html'
 
 class PasswordResetView(TemplateView):
-    template_name = 'dashboard/password_reset.html'
+    template_name = 'authentication/password_reset.html'
 
 class DashboardView(LoginRequiredMixin, ListView):
-    model = Post
     template_name = 'dashboard/dashboard.html'
-    context_object_name = 'posts'
     paginate_by = 10
 
     def get_queryset(self):
@@ -67,9 +65,17 @@ class DashboardView(LoginRequiredMixin, ListView):
             return redirect('dashboard:login')
         return super().post(request, *args, **kwargs)
 
-        
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        context['form'] = CategoryForm()  # フォームをコンテキストに追加
-        return context
+class AboutView(LoginRequiredMixin,TemplateView):
+    template_name = 'dashboard/about/about.html'
+    login_url = reverse_lazy('dashboard:login')
+    raise_exception = False
+
+class BlogView(LoginRequiredMixin,TemplateView):
+    template_name = 'dashboard/blog/blog.html'
+    login_url = reverse_lazy('dashboard:login')
+    raise_exception = False
+
+class GalleryView(LoginRequiredMixin,TemplateView):
+    template_name = 'dashboard/gallery/gallery.html'
+    login_url = reverse_lazy('dashboard:login')
+    raise_exception = False

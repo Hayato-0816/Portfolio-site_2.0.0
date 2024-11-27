@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Category, Post
+from .models import BlogImage, Category, Post
 from django.contrib.auth.models import User
+
+@admin.register(BlogImage)
+class BlogImageAdmin(admin.ModelAdmin):
+    list_display = ['image']
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

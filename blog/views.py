@@ -1,10 +1,15 @@
 from django.views.generic import *
 from .models import *
 
+# Category ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'blog/category.html'
+
 # Post List ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/post_list.html'
+    template_name = 'blog/blog.html'
     context_object_name = 'posts'
     paginate_by = 10
 
