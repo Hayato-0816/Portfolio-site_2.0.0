@@ -22,10 +22,10 @@ body::-webkit-scrollbar{
     justify-content: space-between;
 
     position: fixed;
-    top: 10px;
+    top: 1%;
     left: 200px;
     right: 20px;
-    bottom: 20px;
+    bottom: 2%;
     border-radius: 15px;
     
     background-color: transparent;
@@ -64,32 +64,42 @@ ul, li{
 /* font ////////////////////////////////////////////////////////////////////////////////////// */
 @font-face {
     font-family: "Zen Maru Gothic";
-    src: url("../../static/fonts/ZenMaruGothic-Regular.ttf");
+    src: url("../../static/fonts/ZenMaruGothic-Light.ttf");
+}
+
+@font-face {
+    font-family: "Zen Kaku Gothic Antique";
+    src: url("../../static/fonts/ZenKakuGothicAntique-Black.ttf");
 }
 
 .zen-maru-gothic-light {
+    font-family: "Zen Maru Gothic", serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.zen-maru-gothic-regular {
     font-family: "Zen Maru Gothic", serif;
     font-weight: 300;
     font-style: normal;
 }
 
+.zen-kaku-gothic-antique-regular {
+    font-family: "Zen Kaku Gothic Antique", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.zen-kaku-gothic-antique-black {
+    font-family: "Zen Kaku Gothic Antique", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
 /* main ////////////////////////////////////////////////////////////////////////////////////// */
 main{
-    display: flex;
-    flex: 1;
+    min-height: 97vh;
     overflow: scroll;
-
-    /* position: absolute;
-    top: 5px;
-    right: 5px;
-    bottom: 5px;
-    width: 87%;
-
-    border-radius: 10px; */
-
-
-    /* width: 84.66%;
-    height: 100%; */
 }
 
 main::-webkit-scrollbar{
@@ -102,11 +112,11 @@ footer{
     justify-content: flex-end;
     align-items: center;
 
-    height: 20px;
+    height: 2%;
     position: fixed;
     bottom: 0;
-    left: 10px;
-    right: 20px;
+    left: 0px;
+    right: 0px;
 
     font-size: 12px;
     letter-spacing: 5px;
@@ -114,6 +124,15 @@ footer{
 
 footer p{
     position: relative;
-    right: 50px;
+    right: 60px;
     text-align: center;
+}
+
+/* other page ////////////////////////////////////////////////////////////////////////////////////// */
+.page_title{
+    font-family: "Zen Kaku Gothic Antique", sans-serif;
+    font-weight: 900;
+    font-size: 90px;
+    color: #E7E7E7;
+    letter-spacing: 30px;
 }

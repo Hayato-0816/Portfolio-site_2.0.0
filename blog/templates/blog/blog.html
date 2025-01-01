@@ -1,45 +1,57 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/blog/blog.css' %}">
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
 {% endblock %}
 <!-- {% block title %}記事一覧{% endblock %} -->
 
 {% block content %}
-{% include 'header.html' %}
-<section>
-    <h1>Blog</h1>
-    <div class="container">
-        <div class="article-list">
+<!-- {% include 'header.html' %} -->
+<section class="blog_container zen_maru_gothic_light">
+    <h1 class="page_title zen_kaku_gothic_antique_black">Blog</h1>
+    <div class="search_container">
+        <form method="GET" action="{% url 'blog:search' %}" class="search_form">
+          <input type="text" name="q" class="search_input" placeholder="検索キーワードを入力">
+          <!-- <button type="submit" class="search_button">
+            <i class="fas fa_search"></i>
+          </button> -->
+        </form>
+    </div>
+    <div class="category_container">
+        <h2 class="zen_maru_gothic_regular">カテゴリ</h2>
+        <ul class="category_list" id="category_sortable">
+            {% for category in categories %}
+            <li class="category_box" draggable="true" data-category-id="{{ category.id }}" data-category-name="{{ category.name }}">
+                <a href="" class="category_box_link">
+                    <p>{{ category.name }}</p>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="article_container">
+        <h2 class="zen_maru_gothic_regular">記事一覧</h2>
+        <div class="article_list">
             {% for post in posts %}
-            <a href="{{ post.get_absolute_url }}" class="blog-article">
+            <a href="{{ post.get_absolute_url }}" class="blog_article">
                 <article>
-                    <h2>{{ post.title }}</h2>
+                    <h3>{{ post.title }}</h3>
                     <p class="meta">
-                        カテゴリー: {{ post.category.name }} |
+                        # {{ post.category.name }} |
                         投稿日: {{ post.created_at|date:"Y/m/d" }}
                     </p>
-                    <div class="content-preview">
-                        {{ post.content|truncatewords:30|truncatechars:100 }}
+                    <div class="content_preview">
+                        {{ post.content|truncatewords:30|truncatechars:30 }}
                     </div>
                 </article>
             </a>
             {% empty %}
-            <p class="no-article">記事がありません。</p>
+            <p class="no_article">記事がありません。</p>
             {% endfor %}
-        </div>
-        <div class="categories">
-            <p>カテゴリー</p>
-            <ul>
-                {% for category in categories %}
-                <li>
-                    {{ category.name }}
-                {% endfor %}
-            </ul>
-            <a href="{% url 'blog:category_list' %}">カテゴリー一覧</a>
         </div>
     </div>
 </section>
-<script src="{% static 'js/image-position.js' %}"></script>
-<script src="{% static 'js/article-height.js' %}"></script>
+<script src="{% static 'js/blog.js' %}"></script>
+<script src="{% static 'js/image_position.js' %}"></script>
+<script src="{% static 'js/article_height.js' %}"></script>
 {% endblock %}

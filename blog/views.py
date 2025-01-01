@@ -1,5 +1,7 @@
 from django.views.generic import *
 from .models import *
+from django.shortcuts import render
+from django.db.models import Q
 
 # Category ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class CategoryListView(ListView):
@@ -28,4 +30,22 @@ class PostDetailView(DetailView):
 
     def get_queryset(self):
         return Post.objects
+
+def SearchView(request):
+    query = request.GET.get('q', '')
     
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query)
+        ).filter(status='published')  # 公開済みの記事のみを検索
+        
+        print(f"検索クエリ: {query}")  # デバッグ用
+        print(f"検索結果数: {results.count()}")  # デバッグ用
+    else:
+        results = []
+        
+    return render(request, 'blog/search.html', {
+        'query': query,
+        'results': results
+    })

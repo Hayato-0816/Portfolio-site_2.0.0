@@ -36,8 +36,8 @@
                 </div>
             </a>
         </div>
-        <div class="nav_item">
-            <a href="">
+        <div class="nav_item {% if 'contact' in request.path %}active{% endif %}">
+            <a href="{% url 'contact:message' %}">
                 <div class="nav_name nav_no_icon">
                     <div class="japanese">お問い合わせ</div>
                     <div class="english">Contact</div>

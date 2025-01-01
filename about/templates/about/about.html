@@ -1,5 +1,64 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
 
 {% block content %}
-    <h1>About</h1>
+<h1 class="page_title zen-kaku-gothic-antique-black">About</h1>
+<section class="about_container zen-maru-gothic-light">
+    <div class="scroll_bar zen-kaku-gothic-antique-regular">Scroll</div>
+    <div class="about_container_inner_01_background">
+        <div class="about_container_inner_01">
+            <div class="about_container_inner_01_left">
+                <div class="about_name">
+                    <p class="name_eng">
+                        <span>Machida Hayato</span>
+                    </p>
+                    <h2 class="name_jp zen-maru-gothic-light">まちだ　はやと</h2>
+                </div>
+                <div class="about_explanation">
+                    <p class="about_explanation_01">
+                        1997年夏生まれの神奈川県出身。<br>
+                        モバイル通信のエンジニアとして働く傍らで、WebデザインやWebアプリケーションの開発に取り組んできました。
+                    </p>
+                    <p class="about_explanation_02">
+                        一人ひとりの想いを形を変え表現することができるWebデザインに惹かれ、次第に自分でもアプリケーションを作成するようになる。<br>
+                        “繊細さ”、”体験”、”心”を大切にしており、一から一人ひとりの心や想いを体現できるモノづくりを目指しています。
+                    </p>
+                </div>
+            </div>
+            <div class="about_container_inner_01_right">
+                <img src="{% static '' %}" alt="about_img">
+            </div>
+        </div>
+    </div>
+    <div class="about_container_inner_02_background">
+        <div class="about_container_inner_02">
+            <h2 class="about_skills">できること</h2>
+            <div class="about_skills_container">
+                <div class="about_skills_design">
+                    <h3 class="about_skills_h3 zen-maru-gothic-regular">ウェブデザイン</h3>
+                    <ul class="about_skills_design_list zen-maru-gothic-regular">
+                        <li>デザインカンプ作成</li>
+                        <li>Figma</li>
+                        <li>Photoshop</li>
+                        <li>デザイン実装</li>
+                    </ul>
+                </div>
+                <div class="about_skills_application">
+                    <h3 class="about_skills_h3 zen-maru-gothic-regular">ウェブアプリケーション開発</h3>
+                    <ul class="about_skills_application_list zen-maru-gothic-regular">
+                        <li>フロントエンド開発</li>
+                        <li>HTML/CSS</li>
+                        <li>JavaScript</li>
+                        <li>バックエンド開発</li>
+                        <li>Python</li>
+                        <li>Django</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

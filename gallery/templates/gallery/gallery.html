@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
 
 {% block content %}
-    <h1>Gallery</h1>
+<section class="gallery_container zen_maru_gothic_light">
+    <h1 class="page_title zen_kaku_gothic_antique_black">Gallery</h1>
+    <div class="contents_container">
+        <p class="no_article">記事がありません。</p>
+    </div>
+</section>
 {% endblock %}

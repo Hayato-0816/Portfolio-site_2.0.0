@@ -1,0 +1,23 @@
+@import url('../../css/base/base.css');
+
+h1{
+    position: fixed;
+    top: 100px;
+    left: 380px;
+    z-index: -100;
+}
+
+.gallery_container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* contents_container   ////////////////////////////////////////////////////////////////////////////////////// */
+.contents_container{
+    width: 52.9%;
+    height: 100%;
+    position: relative;
+    top: 32.9%;
+    left: 32.4%;
+}

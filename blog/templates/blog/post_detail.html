@@ -1,12 +1,64 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+{% endblock %}
 {% block title %}{{ post.title }} - {{ block.super }}{% endblock %}
 
 {% block content %}
-<div class="article-detail">
-    <!-- <div class="categories">
-        <p>カテゴリー</p>
+<section class="article-detail">
+    <div class="article_scroller">
+        <div class="article_content">
+            <h1>{{ post.title }}</h1>
+            <div class="articles">
+                <article>
+                    <p class="meta">
+                        # {{ post.category.name }} |
+                        投稿日: {{ post.created_at|date:"Y/m/d" }}
+                    </p>
+                    <div class="content">
+                        {{ post.content|linebreaks }}
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="table_of_contents">
+        <h2>もくじ</h2>
         <ul>
+            <li>
+                <a href="#">Contents 1</a>
+                <ul class="sub_contents">
+                    <li>
+                        <a href="#">Contents</a>
+                    </li>
+                    <li>
+                        <a href="#">Contents</a>
+                    </li>
+                    <li>
+                        <a href="#">Contents</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Contents 2</a>
+                <ul class="sub_contents">
+                    <li>
+                        <a href="#">Contents</a>
+                    </li>
+                    <li>
+                        <a href="#">Contents</a>
+                    </li>
+                    <li>
+                        <a href="#">Contents</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+        <!-- <div class="categories">
+            <p>カテゴリー</p>
+            <ul>
             {% for category in categories %}
                 <li>
                     {{ category.name }}
@@ -14,17 +66,5 @@
         </ul>
     </div> -->
 
-    <h1>{{ post.title }}</h1>
-    <div class="articles">
-        <article>
-            <p class="meta">
-                カテゴリー: {{ post.category.name }} |
-                投稿日: {{ post.created_at|date:"Y/m/d" }}
-            </p>
-            <div class="content">
-                {{ post.content|linebreaks }}
-            </div>
-        </article>
-    </div>
-</div>
+</section>
 {% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="contact_container zen_maru_gothic_light">
+    <h1 class="page_title zen_kaku_gothic_antique_black">Contact</h1>
+    <div class="contact_form">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">送信</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
