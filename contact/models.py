@@ -8,16 +8,18 @@ class Message(models.Model):
         ('other', 'その他'),
     )
 
-    company_name = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=100)
+    company_name = models.CharField("会社名", max_length=100, blank=True)
+    name = models.CharField("お名前", max_length=100)
+    email = models.EmailField("メールアドレス")
+    phone_number = models.CharField("電話番号", max_length=100)
     category = models.CharField(
+        "カテゴリ",
         max_length=30,
         choices=CATEGORYS,
-        default='other'
+        default='other',
+        blank=True,
     )
-    message = models.TextField()
+    message = models.TextField("お問い合わせ内容")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

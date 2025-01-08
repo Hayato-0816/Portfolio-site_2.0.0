@@ -90,6 +90,12 @@ ul, li{
     font-style: normal;
 }
 
+.zen-kaku-gothic-antique-medium {
+    font-family: "Zen Kaku Gothic Antique", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
 .zen-kaku-gothic-antique-black {
     font-family: "Zen Kaku Gothic Antique", sans-serif;
     font-weight: 900;

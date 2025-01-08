@@ -6,13 +6,100 @@
 
 {% block content %}
 <section class="contact_container zen_maru_gothic_light">
-    <h1 class="page_title zen_kaku_gothic_antique_black">Contact</h1>
-    <div class="contact_form">
-        <form action="" method="post">
+    <div class="contact_form" id="contact_form">
+        <div class="contact_title">
+            <h1 class="zen-kaku-gothic-antique-medium">Contact</h1>
+            <p class="zen-maru-gothic-regular">
+                お問い合わせはこちらから<br>
+                お気軽にお問い合わせください。
+            </p>
+        </div>
+        <form action="" method="post" id="contactForm">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">送信</button>
+            {{ form.non_field_errors }}
+            <div class="field_left">
+                <div class="field" id="company_name_field">
+                    {{ form.company_name.label_tag }}
+                    {{ form.company_name }}
+                </div>
+                <div class="field" id="name_field">
+                    <label for="{{ form.name.id_for_label }}">お名前<span class="required" id="name_required" data-tooltip="必須項目">※</span></label>
+                    {{ form.name }}
+                </div>
+                <div class="field" id="email_field">
+                    <label for="{{ form.email.id_for_label }}">メールアドレス<span class="required" id="email_required" data-tooltip="必須項目">※</span></label>
+                    {{ form.email }}
+                </div>
+                <div class="field" id="phone_number_field">
+                    <label for="{{ form.phone_number.id_for_label }}">電話番号<span class="required" id="phone_required"></span></label>
+                    {{ form.phone_number }}
+                </div>
+            </div>
+            <div class="field_right">
+                <div class="field" id="message_field">
+                    <label for="{{ form.message.id_for_label }}">お問い合わせ内容<span class="required" id="message_required" data-tooltip="必須項目">※</span></label>
+                    {{ form.message }}
+                </div>
+                <button type="button" onclick="showConfirmation()">確認</button>
+            </div>
         </form>
     </div>
+    <div class="input_confirmation" id="input_confirmation">
+        <div class="contact_title">
+            <h1 class="zen-kaku-gothic-antique-medium">Contact</h1>
+            <p class="zen-maru-gothic-regular">
+                入力内容の確認。
+            </p>
+        </div>
+        <div class="confirmation_content">
+            <div class="field_left">
+                <div class="conf_company">
+                    <p>会社名：</p>
+                    <span id="conf_company"></span>
+                </div>
+                <div class="conf_name">
+                    <p>お名前：</p>
+                    <span id="conf_name"></span>
+                </div>
+                <div class="conf_email">
+                    <p>メールアドレス：</p>
+                    <span id="conf_email"></span>
+                </div>
+                <div class="conf_phone">
+                    <p>電話番号：</p>
+                    <span id="conf_phone"></span>
+                </div>
+            </div>
+            <div class="field_right">
+                <div class="conf_message">
+                    <p>お問い合わせ内容：</p>
+                    <span id="conf_message"></span>
+                </div>
+                <div class="confirmation_buttons">
+                    <button type="button" onclick="hideConfirmation()">修正する</button>
+                    <button type="submit" form="contactForm">送信する</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="completion" id="completion">
+        <div class="contact_title">
+            <h1 class="zen-kaku-gothic-antique-medium">Contact</h1>
+            <p class="zen-maru-gothic-regular">
+                送信が完了しました。<br>
+                お問い合わせありがとうございます。
+            </p>
+        </div>
+        <div class="completion_content zen-maru-gothic-regular">
+            <p>
+                この度はお問い合わせいただきまして誠にありがとうございます。<br>
+                内容を確認次第、担当者より折返しご連絡させていただきます。今しばらくお待ちくださいませ。<br>
+                また、ご入力いただいたメールアドレス宛に確認メールをお送りしましたので、ご確認ください。<br>
+                ※ご返信までお時間を頂戴する場合がございます。<br>
+                ※内容によりましてはご返信いたしかねる場合がございます。あらかじめご了承ください<br>
+            </p>
+        </div>
+    </div>
 </section>
+<script src="{% static 'js/contact.js' %}"></script>
 {% endblock %}

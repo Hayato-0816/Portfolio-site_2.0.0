@@ -1,15 +1,343 @@
 @import url('../../css/base/base.css');
-/* entire   ////////////////////////////////////////////////////////////////////////////////////// */
-
-h1{
-    position: fixed;
-    top: 100px;
-    left: 380px;
-    z-index: -100;
-}
 
 .contact_container{
     width: 100%;
     height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* contact   ////////////////////////////////////////////////////////////////////////////////////// */
+.contact_form{
+    width: 84.7%;
+    height: 82.2%;
+    position: absolute;
+    top: 80px;
+    display: flex;
+    justify-content: center;
+    background-color: #FBFAF9;
+    border-radius: 10px;
+    box-shadow: 3px 4px 13px 3px #4545452b;
+    transition: all 0.5s ease;
+}
+
+.required {
+    margin-left: 5px;
+    text-align: center;
+    position: relative;
+    color: #c90000;
+    font-size: 12px;
+}
+
+.required::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 20%;
+    padding: 5px 10px;
+    background-color: #333333;
+    color: #FFFFFF;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.required:hover::after{
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.required.error {
+    transition: all 0.5s ease;
+}
+
+.required.error::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+.contact_title{
+    position: absolute;
+    top: 90px;
+}
+
+.contact_title h1{
+    font-size: 40px;
+    letter-spacing: 10px;
+    text-align: center;
+}
+
+.contact_title p{
+    font-size: 14px;
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+.contact_form form{
+    width: 80%;
+    height: 46%;
+    position: absolute;
+    top: 260px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact_form form .field{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact_form form .field label{
+    font-size: 14px;
+    letter-spacing: 5px;
+}
+
+.field_left{
+    width: 47%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.field_left input{
+    width: 92.8%;
+    height: 35px;
+    padding: 0 3.6%;
+    font-size: 14px;
+    background-color: #FFFFFF;
+    box-shadow: 
+        inset 2px 2px 4px 0 #d2d2d233,
+        inset -2px -2px 4px 0 #d2d2d233,
+        inset 2px -2px 4px 0 #e0e0e0e6,
+        inset -2px 2px 5px 0 #e0e0e0e6;
+    border: none;
+    outline: none;
+}
+
+.field_right{
+    width: 47%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.field_right #message_field{
+    height: 81.8%;
+}
+
+.field_right textarea{
+    width: 92.8%;
+    height: 92.8%;
+    padding: 10px 3.6%;
+    font-size: 14px;
+    background-color: #FFFFFF;
+    box-shadow: 
+        inset 2px 2px 4px 0 #d2d2d233,
+        inset -2px -2px 4px 0 #d2d2d233,
+        inset 2px -2px 4px 0 #e0e0e0e6,
+        inset -2px 2px 5px 0 #e0e0e0e6;
+    resize: none;
+    border: none;
+    outline: none;
+}
+
+.contact_form form button{
+    width: 100%;
+    height: 30px;
+    background-color: #e0e0e0;
+    box-shadow: 
+        -4px -2px 8px 0 #cdcdcd33,
+        -2px 4px 10px 0 #cdcdcde6;
+    font-size: 14px;
+    letter-spacing: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.contact_form form button:hover{
+    background-color: #F1F1F1;
+    box-shadow: 
+        -4px -2px 8px 0 #cdcdcd33,
+        -2px 4px 10px 0 #cdcdcde6;
+}
+
+.contact_form form button:active{
+    background-color: #F1F1F1;
+    box-shadow: 
+        inset 2px 2px 4px 0 #d2d2d233,
+        inset -2px -2px 4px 0 #d2d2d233,
+        inset 2px -2px 4px 0 #e0e0e0e6,
+        inset -2px 2px 5px 0 #e0e0e0e6;
+}
+
+/* confirmation   ////////////////////////////////////////////////////////////////////////////////////// */
+.input_confirmation{
+    width: 84.7%;
+    height: 82.2%;
+    position: absolute;
+    top: 1000px;
+    background-color: #FBFAF9;
+    border-radius: 10px;
+    box-shadow: 3px 4px 13px 3px #4545452b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.input_confirmation.input_active {
+    top: 80px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.confirmation_content{
+    width: 80%;
+    height: 46%;
+    position: absolute;
+    top: 260px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirmation_content p{
+    font-size: 14px;
+    letter-spacing: 5px;
+}
+
+.confirmation_content .field_left span{
+    width: 92.8%;
+    padding: 0 3.6%;
+    font-size: 18px;
+    display: block;
+    height: 35px;
+}
+
+.confirmation_content .field_right .conf_message{
+    height: 81.8%;
+}
+
+.confirmation_content .field_right span{
+    display: block;
+    width: 92.8%;
+    height: 85.7%;
+    padding: 10px 3.6%;
+    flex-grow: 1;
+    font-size: 18px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+}
+
+.confirmation_buttons{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.confirmation_buttons button{
+    /* width: 46%; */
+    height: 30px;
+    background-color: #e0e0e0;
+    box-shadow: 
+        -4px -2px 8px 0 #cdcdcd33,
+        -2px 4px 10px 0 #cdcdcde6;
+    font-size: 14px;
+    letter-spacing: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.confirmation_buttons button:first-child{
+    flex-grow: 2;
+    background-color: #e0e0e0;
+}
+
+.confirmation_buttons button:last-child{
+    flex-grow: 3;
+    color: #FFFFFF;
+    background-color: #c90000;
+}
+
+.confirmation_buttons button:first-child:hover{
+    background-color: #F1F1F1;
+    box-shadow: 
+        -4px -2px 8px 0 #cdcdcd33,
+        -2px 4px 10px 0 #cdcdcde6;
+}
+
+.confirmation_buttons button:last-child:hover{
+    background-color: #f10000;
+    box-shadow: 
+        -4px -2px 8px 0 #cdcdcd33,
+        -2px 4px 10px 0 #cdcdcde6;
+}
+
+.confirmation_buttons button:first-child:active{
+    background-color: #F1F1F1;
+    box-shadow: 
+        inset 2px 2px 4px 0 #d2d2d233,
+        inset -2px -2px 4px 0 #d2d2d233,
+        inset 2px -2px 4px 0 #e0e0e0e6,
+        inset -2px 2px 5px 0 #e0e0e0e6;
+}
+
+.confirmation_buttons button:last-child:active{
+    background-color: #f10000;
+    box-shadow: 
+        inset 2px 2px 4px 0 #d2d2d233,
+        inset -2px -2px 4px 0 #d2d2d233,
+        inset 2px -2px 4px 0 #e0e0e0e6,
+        inset -2px 2px 5px 0 #e0e0e0e6;
+}
+
+/* completion   ////////////////////////////////////////////////////////////////////////////////////// */
+.completion {
+    width: 84.7%;
+    height: 82.2%;
+    position: absolute;
+    top: 1000px;
+    color: #FFFFFF;
+    background-color: #3F3F3F;
+    border-radius: 10px;
+    box-shadow: 3px 4px 13px 3px #4545452b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.completion.active {
+    top: 80px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.completion_content {
+    font-size: 20px;
+    text-align: center;
+    line-height: 2;
+    margin-top: 100px;
 }
