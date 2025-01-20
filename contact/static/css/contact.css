@@ -8,6 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 /* contact   ////////////////////////////////////////////////////////////////////////////////////// */
@@ -44,18 +45,10 @@
     white-space: nowrap;
     visibility: hidden;
     opacity: 0;
-}
-
-.required:hover::after{
-    visibility: visible;
-    opacity: 1;
     transition: all 0.3s ease;
 }
 
-.required.error {
-    transition: all 0.5s ease;
-}
-
+.required:hover::after,
 .required.error::after {
     visibility: visible;
     opacity: 1;
@@ -149,13 +142,11 @@
     outline: none;
 }
 
-.contact_form form button{
-    width: 100%;
+.contact_form form button,
+.confirmation_buttons button,
+.completion_button button{
     height: 30px;
     background-color: #e0e0e0;
-    box-shadow: 
-        -4px -2px 8px 0 #cdcdcd33,
-        -2px 4px 10px 0 #cdcdcde6;
     font-size: 14px;
     letter-spacing: 5px;
     border-radius: 5px;
@@ -165,15 +156,23 @@
     transition: all 0.1s ease;
 }
 
-.contact_form form button:hover{
-    background-color: #F1F1F1;
+.contact_form form button,
+.confirmation_buttons button{
     box-shadow: 
         -4px -2px 8px 0 #cdcdcd33,
         -2px 4px 10px 0 #cdcdcde6;
 }
 
-.contact_form form button:active{
+.contact_form form button:hover,
+.confirmation_buttons button:first-child:hover,
+.completion_button button:hover{
     background-color: #F1F1F1;
+}
+
+.contact_form form button:active,
+.confirmation_buttons button:first-child:active,
+.completion_button button:active{
+    background-color: #e0e0e0;
     box-shadow: 
         inset 2px 2px 4px 0 #d2d2d233,
         inset -2px -2px 4px 0 #d2d2d233,
@@ -249,25 +248,8 @@
     gap: 20px;
 }
 
-.confirmation_buttons button{
-    /* width: 46%; */
-    height: 30px;
-    background-color: #e0e0e0;
-    box-shadow: 
-        -4px -2px 8px 0 #cdcdcd33,
-        -2px 4px 10px 0 #cdcdcde6;
-    font-size: 14px;
-    letter-spacing: 5px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.1s ease;
-}
-
 .confirmation_buttons button:first-child{
     flex-grow: 2;
-    background-color: #e0e0e0;
 }
 
 .confirmation_buttons button:last-child{
@@ -276,27 +258,8 @@
     background-color: #c90000;
 }
 
-.confirmation_buttons button:first-child:hover{
-    background-color: #F1F1F1;
-    box-shadow: 
-        -4px -2px 8px 0 #cdcdcd33,
-        -2px 4px 10px 0 #cdcdcde6;
-}
-
 .confirmation_buttons button:last-child:hover{
     background-color: #f10000;
-    box-shadow: 
-        -4px -2px 8px 0 #cdcdcd33,
-        -2px 4px 10px 0 #cdcdcde6;
-}
-
-.confirmation_buttons button:first-child:active{
-    background-color: #F1F1F1;
-    box-shadow: 
-        inset 2px 2px 4px 0 #d2d2d233,
-        inset -2px -2px 4px 0 #d2d2d233,
-        inset 2px -2px 4px 0 #e0e0e0e6,
-        inset -2px 2px 5px 0 #e0e0e0e6;
 }
 
 .confirmation_buttons button:last-child:active{
@@ -317,7 +280,7 @@
     color: #FFFFFF;
     background-color: #3F3F3F;
     border-radius: 10px;
-    box-shadow: 3px 4px 13px 3px #4545452b;
+    /* box-shadow: 3px 4px 13px 3px #4545452b; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -340,4 +303,18 @@
     text-align: center;
     line-height: 2;
     margin-top: 100px;
+}
+
+.completion_button{
+    width: 30%;
+    height: 30px;
+    position: absolute;
+    bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.completion_button button{
+    width: 100%;
 }

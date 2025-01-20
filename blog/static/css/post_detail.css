@@ -21,7 +21,6 @@
 }
 
 .article_content{
-    width: 100%;
     margin-top: 120px;
     width: 58.8%;
     position: relative;
@@ -53,11 +52,9 @@
 }
 
 article .content{
-    /* height: 5000px; */
     height: 100%;
     margin-top: 70px;
 }
-
 
 .table_of_contents{
     width: 11.7%;
@@ -71,4 +68,3 @@ article .content{
 .table_of_contents a {
     pointer-events: auto;
 }
-

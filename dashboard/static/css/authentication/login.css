@@ -1,0 +1,98 @@
+*, html, body{
+    margin: 0;
+    padding: 0;
+    max-width: 100vw;
+}
+
+.login_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FAFAFA;
+}
+
+.card{
+    width: 26%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FBFAF9;
+    border-radius: 5px;
+    box-shadow: 3px 4px 15px 3px rgba(0, 0, 0, 0.25);
+}
+
+.card_header h2{
+    margin-top: 10px;
+    font-size: 40px;
+    letter-spacing: 10px;
+    text-align: center;
+}
+
+.card_body{
+    width: 80%;
+}
+
+.card_body form{
+    width: 100%;
+    position: relative;
+}
+
+.card_body p{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card_body label{
+    font-size: 14px;
+    letter-spacing: 5px;
+}
+
+.card_body input{
+    width: 100%;
+    height: 35px;
+    padding: 0 3.6%;
+    font-size: 14px;
+    background-color: #FFFFFF;
+    box-shadow: 
+        inset 2px 2px 4px 0 #d2d2d233,
+        inset -2px -2px 4px 0 #d2d2d233,
+        inset 2px -2px 4px 0 #e0e0e0e6,
+        inset -2px 2px 5px 0 #e0e0e0e6;
+    border: none;
+    outline: none;
+}
+
+.login_btn{
+    width: 100%;
+    height: 25px;
+    margin-top: 35px;
+    background-color: #e0e0e0;
+    font-size: 14px;
+    letter-spacing: 5px;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.login_btn:hover{
+    background-color: #F1F1F1;
+    box-shadow: 
+    -4px -2px 8px 0 #cdcdcd33,
+    -2px 4px 10px 0 #cdcdcde6;
+}
+
+.login_btn:active{
+    background-color: #d3d3d3;
+    box-shadow: 
+        inset 2px 2px 4px 0 rgba(0, 0, 0, 0.2),
+        inset -2px -2px 4px 0 rgba(255, 255, 255, 0.1),
+        inset 2px -2px 4px 0 rgba(0, 0, 0, 0.15),
+        inset -2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+}

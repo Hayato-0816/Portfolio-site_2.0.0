@@ -1,214 +1,232 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryList = document.querySelector('.category-list');
-    
-    categoryList.addEventListener('wheel', function(e) {
-        // デフォルトの縦スクロールを防止
-        e.preventDefault();
-        
-        // 横スクロールの実行
-        categoryList.scrollLeft += e.deltaY;
-    });
-});
+const blog = {
+    init() {
+        document.addEventListener('DOMContentLoaded', () => {
+            this.besideScroll();
+            this.dragAndDrop();
+            this.categoryFilter();
+            this.searchForm();
+        });
+    },
 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryList = document.getElementById('category-sortable');
-    const categoryItems = categoryList.getElementsByClassName('category_box');
-    
-    Array.from(categoryItems).forEach(item => {
-        item.addEventListener('dragstart', handleDragStart);
-        item.addEventListener('dragend', handleDragEnd);
-    });
-
-    categoryList.addEventListener('dragover', handleDragOver);
-    categoryList.addEventListener('drop', handleDrop);
-
-    let draggedItem = null;
-    let dropTarget = null;
-    let insertMode = 'swap'; // 'swap' または 'insert'
-
-    function handleDragStart(e) {
-        draggedItem = this;
-        this.classList.add('dragging');
-        e.dataTransfer.effectAllowed = 'move';
-    }
-
-    function handleDragOver(e) {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-
-        const draggable = document.querySelector('.dragging');
-        if (!draggable) return;
-
-        const result = getDropTarget(e.clientX, e.clientY);
-        if (result) {
-            dropTarget = result.element;
-            insertMode = result.mode;
+    // カテゴリーリストの横スクロール処理
+    besideScroll() {
+        const categoryList = document.querySelector('.category-list');
+        if (categoryList) {
+            categoryList.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                categoryList.scrollLeft += e.deltaY;
+            });
         }
-    }
+    },
 
-    function handleDrop(e) {
-        e.preventDefault();
-        if (!draggedItem || !dropTarget || draggedItem === dropTarget) return;
+    // カテゴリーのドラッグ&ドロップ処理
+    dragAndDrop() {
+        const categoryListSortable = document.getElementById('category_sortable');
+        if (!categoryListSortable) return;
     
-        // ドロップ前の位置を記録
-        const initialRect = draggedItem.getBoundingClientRect();
+        const handleDragStart = function(e) {
+            draggedItem = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        };
     
-        // 既存のアニメーションクラスを削除
-        draggedItem.classList.remove('animating');
+        const handleDragEnd = function() {
+            this.classList.remove('dragging');
+            draggedItem = dropTarget = null;
+        };
+    
+        let draggedItem = null;
+        let dropTarget = null;
         
-        if (insertMode === 'swap') {
-            // 要素の入れ替え処理
-            const tempNode = document.createElement('div');
-            draggedItem.parentNode.insertBefore(tempNode, draggedItem);
-            dropTarget.parentNode.insertBefore(draggedItem, dropTarget);
-            tempNode.replaceWith(dropTarget);
-        } else {
-            // 要素の間に挿入
+        const categoryItems = categoryListSortable.querySelectorAll('.category_box');
+    
+        Array.from(categoryItems).forEach(item => {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
+        });
+    
+        const handleDragOver = function(e) {
+            e.preventDefault();
+            const result = getDropTarget(e.clientX, e.clientY);
+            dropTarget = result?.element || null;
+        };
+    
+        const handleDrop = function(e) {
+            e.preventDefault();
+            if (!draggedItem || !dropTarget || draggedItem === dropTarget) return;
+    
+            const initialRect = draggedItem.getBoundingClientRect();
+            
+            // 要素の移動
             const mouseX = e.clientX;
             const targetRect = dropTarget.getBoundingClientRect();
-            const targetCenter = targetRect.left + targetRect.width / 2;
-            if (mouseX > targetCenter) {
-                dropTarget.after(draggedItem);
-            } else {
-                dropTarget.before(draggedItem);
+            const insertAfter = mouseX > targetRect.left + targetRect.width / 2;
+            insertAfter ? dropTarget.after(draggedItem) : dropTarget.before(draggedItem);
+    
+            // アニメーション
+            const finalRect = draggedItem.getBoundingClientRect();
+            const deltaX = initialRect.left - finalRect.left;
+            
+            if (Math.abs(deltaX) > 0) {
+                draggedItem.style.transform = `translateX(${deltaX}px)`;
+                requestAnimationFrame(() => {
+                    draggedItem.style.transition = 'transform 0.3s ease-out';
+                    draggedItem.style.transform = '';
+                });
             }
-        }
     
-        // アニメーションの適用
-        const finalRect = draggedItem.getBoundingClientRect();
-        const deltaX = initialRect.left - finalRect.left;
+            // 新しい順序を記録
+            const newOrder = [...categoryListSortable.getElementsByClassName('category_box')]
+                .map(item => item.dataset.categoryId);
+            console.log('New order:', newOrder);
+        };
     
-        if (Math.abs(deltaX) > 0) {
-            // トランジションを一時的に無効化
-            draggedItem.style.transition = 'none';
-            draggedItem.style.transform = `translateX(${deltaX}px)`;
-            
-            // リフローを強制
-            draggedItem.offsetHeight;
-            
-            // トランジションを再有効化してアニメーションを開始
-            draggedItem.style.transition = 'transform 0.3s ease-out';
-            draggedItem.style.transform = '';
+        const getDropTarget = function(mouseX, mouseY) {
+            const elements = [...categoryListSortable.querySelectorAll('.category_box:not(.dragging)')];
+            return elements.find(element => {
+                const rect = element.getBoundingClientRect();
+                return mouseY >= rect.top && mouseY <= rect.bottom;
+            });
+        };
     
-            // アニメーション完了時の処理
-            const handleTransitionEnd = () => {
-                draggedItem.style.transition = '';
-                draggedItem.style.transform = '';
-                draggedItem.removeEventListener('transitionend', handleTransitionEnd);
-            };
-    
-            draggedItem.addEventListener('transitionend', handleTransitionEnd);
-        }
-    
-        const newOrder = Array.from(categoryItems).map(item => item.dataset.categoryId);
-        console.log('New order:', newOrder);
-    }
-
-    function handleDragEnd(e) {
-        this.classList.remove('dragging');
-        draggedItem = null;
-        dropTarget = null;
-    }
-
-    function getDropTarget(mouseX, mouseY) {
-        const draggableElements = [...categoryList.querySelectorAll('.category_box:not(.dragging)')];
-        if (!draggableElements.length) return null;
-
-        for (const element of draggableElements) {
-            const rect = element.getBoundingClientRect();
-            const isOverElement = mouseY >= rect.top && mouseY <= rect.bottom;
-            
-            if (isOverElement) {
-                // 要素の上にある場合
-                if (mouseX >= rect.left && mouseX <= rect.right) {
-                    return {
-                        element: element,
-                        mode: 'swap'
-                    };
-                }
-                
-                // 要素の間の場合
-                const prevElement = element.previousElementSibling;
-                if (prevElement && !prevElement.classList.contains('dragging')) {
-                    const prevRect = prevElement.getBoundingClientRect();
-                    if (mouseX >= prevRect.right && mouseX <= rect.left) {
-                        return {
-                            element: element,
-                            mode: 'insert'
-                        };
-                    }
-                }
-            }
-        }
-
-        // 最後の要素の後ろの場合
-        const lastElement = draggableElements[draggableElements.length - 1];
-        if (lastElement && mouseX > lastElement.getBoundingClientRect().right) {
-            return {
-                element: lastElement,
-                mode: 'insert'
-            };
-        }
-
-        return null;
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryBoxes = document.querySelectorAll('.category_box');
-    const categoryBoxesP = document.querySelectorAll('.category_box p');
-    const articles = document.querySelectorAll('.blog_article');
-
-    // すべての記事を表示する関数
-    function showAllArticles() {
-        articles.forEach(article => {
-            article.style.opacity = '1';
-            article.style.height = 'auto';
-            article.style.marginBottom = '20px';
-            article.style.visibility = 'visible';
+        // イベントリスナーの設定
+        categoryListSortable.querySelectorAll('.category_box').forEach(item => {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
         });
-    }
+    
+        categoryListSortable.addEventListener('dragover', handleDragOver);
+        categoryListSortable.addEventListener('drop', handleDrop);
+    },
 
-    // カテゴリーでフィルタリングする関数
-    function filterByCategory(categoryName) {
-        articles.forEach(article => {
-            const articleCategory = article.querySelector('.meta').textContent;
-            if (articleCategory.includes(categoryName)) {
+    // カテゴリーフィルタリング処理
+    categoryFilter() {
+        function showAllArticles() {
+            articles.forEach(article => {
                 article.style.opacity = '1';
                 article.style.height = 'auto';
                 article.style.marginBottom = '20px';
                 article.style.visibility = 'visible';
-            } else {
-                article.style.opacity = '0';
-                article.style.height = '0';
-                article.style.marginBottom = '0';
-                article.style.visibility = 'hidden';
-            }
-        });
-    }
-
-    // カテゴリーボックスのクリックイベント
-    categoryBoxes.forEach(box => {
-        box.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 既に選択されているカテゴリーをクリックした場合
-            if (this.classList.contains('active')) {
-                // 選択を解除してすべての記事を表示
-                this.classList.remove('active');
-                this.querySelector('p').classList.remove('active');
-                showAllArticles();
-            } else {
-                // 新しいカテゴリーを選択
-                categoryBoxes.forEach(b => b.classList.remove('active'));
-                categoryBoxesP.forEach(p => p.classList.remove('active'));
-                this.classList.add('active');
-                this.querySelector('p').classList.add('active');
+            });
+        }
+        
+        const articles = document.querySelectorAll('.blog_article');
+        function filterByCategory(categoryName) {
+            articles.forEach(article => {
+                const articleCategory = article.querySelector('.meta').textContent;
+                if (articleCategory.includes(categoryName)) {
+                    article.style.opacity = '1';
+                    article.style.height = 'auto';
+                    article.style.marginBottom = '20px';
+                    article.style.visibility = 'visible';
+                } else {
+                    article.style.opacity = '0';
+                    article.style.height = '0';
+                    article.style.marginBottom = '0';
+                    article.style.visibility = 'hidden';
+                }
+            });
+        }
+    
+        const categoryBoxes = document.querySelectorAll('.category_box');
+        const categoryBoxesP = document.querySelectorAll('.category_box p');
+        categoryBoxes.forEach(box => {
+            box.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                const categoryName = this.dataset.categoryName;
-                filterByCategory(categoryName);
-            }
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    this.querySelector('p').classList.remove('active');
+                    showAllArticles();
+                } else {
+                    categoryBoxes.forEach(b => b.classList.remove('active'));
+                    categoryBoxesP.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    this.querySelector('p').classList.add('active');
+                    
+                    const categoryName = this.dataset.categoryName;
+                    filterByCategory(categoryName);
+                }
+            });
         });
-    });
-});
+    },
+
+    // 検索フォーム処理
+    searchForm() {
+        const searchForm = document.querySelector('.search_form');
+        const searchInput = document.querySelector('.search_input');
+        const errorMessage = document.querySelector('.search-error-message');
+        const specialChars = /[<>{}]/;
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+            searchInput.classList.add('error');
+        }
+
+        function clearError() {
+            errorMessage.textContent = '';
+            errorMessage.classList.remove('show');
+            searchInput.classList.remove('error');
+        }
+
+        if (searchForm) {
+            searchForm.addEventListener('submit', function(e) {
+                const searchValue = searchInput.value.trim();
+                clearError();
+
+                if (searchValue === '') {
+                    e.preventDefault();
+                    showError('※検索キーワードを入力してください。');
+                    return;
+                }
+
+                if (searchValue.length < 2) {
+                    e.preventDefault();
+                    showError('※検索キーワードは2文字以上で入力してください。');
+                    return;
+                }
+
+                if (searchValue.length > 50) {
+                    e.preventDefault();
+                    showError('※検索キーワードは50文字以内で入力してください。');
+                    return;
+                }
+
+                if (specialChars.test(searchValue)) {
+                    e.preventDefault();
+                    showError('※特殊文字は使用できません。');
+                    return;
+                }
+
+                if (/\s\s+/.test(searchValue)) {
+                    e.preventDefault();
+                    showError('※連続する空白は使用できません。');
+                    return;
+                }
+            });
+
+            let validationTimeout;
+            searchInput.addEventListener('input', function() {
+                const searchValue = this.value.trim();
+                clearTimeout(validationTimeout);
+                clearError();
+                
+                validationTimeout = setTimeout(() => {
+                    if (searchValue.length > 50) {
+                        showError('※検索キーワードは50文字以内で入力してください。');
+                    } else if (searchValue.length === 1) {
+                        showError('※検索キーワードは2文字以上で入力してください。');
+                    } else if (specialChars.test(searchValue)) {
+                        showError('※特殊文字は使用できません。');
+                    }
+                }, 500);
+            });
+
+            searchInput.addEventListener('focus', clearError);
+        }
+    }
+    
+}
+
+blog.init();

@@ -1,5 +1,29 @@
 {% extends 'admin_base.html' %}
 
 {% block content %}
-    <h1>About Dashboard</h1>
+    <!-- <h1>About Dashboard</h1> -->
+<h2 class="about_skills">できること</h2>
+<div class="about_skills_container">
+    {% for main_category in main_categories %}
+        <div class="about_skills_{{ main_category.name|lower }}">
+            <h3 class="about_skills_h3 zen-maru-gothic-regular">{{ main_category.title_ja }}</h3>
+            <ul class="about_skills_{{ main_category.name|lower }}_list zen-maru-gothic-regular">
+                {% for sub_category in main_category.sub_categories.all %}
+                    {% if sub_category.is_active %}
+                        <li>{{ sub_category.title_ja }}</li>
+                        {% for skill in sub_category.skills.all %}
+                            {% if skill.is_active %}
+                                <li>{{ skill.name }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</div>
+{% for category in categories %}
+    <!-- aboutアプリのモデルデータを表示 -->
+    <h2>{{ main_category.title_ja }}</h2>
+{% endfor %}
 {% endblock %}

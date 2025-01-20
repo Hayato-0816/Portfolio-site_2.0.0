@@ -6,16 +6,13 @@
 <!-- {% block title %}記事一覧{% endblock %} -->
 
 {% block content %}
-<!-- {% include 'header.html' %} -->
 <section class="blog_container zen_maru_gothic_light">
     <h1 class="page_title zen_kaku_gothic_antique_black">Blog</h1>
     <div class="search_container">
         <form method="GET" action="{% url 'blog:search' %}" class="search_form">
-          <input type="text" name="q" class="search_input" placeholder="検索キーワードを入力">
-          <!-- <button type="submit" class="search_button">
-            <i class="fas fa_search"></i>
-          </button> -->
+            <input type="text" name="q" class="search_input" placeholder="検索キーワードを入力">
         </form>
+        <div class="search-error-message"></div>
     </div>
     <div class="category_container">
         <h2 class="zen_maru_gothic_regular">カテゴリ</h2>

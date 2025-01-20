@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Machida Hayato{% endblock %}</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_base.css' %}">
+    {% block head %}{% endblock %}
 </head>
 <body>
     <header>
@@ -15,6 +16,10 @@
             <a href="{% url 'dashboard:blog' %}">blog</a>
             <a href="{% url 'dashboard:gallery' %}">gallery</a>
         </nav>
+        <form method="post" class="logout_btn">
+            {% csrf_token %}
+            <button type="submit" name="logout" onclick="return confirm('ログアウトしてもよろしいですか？')">ログアウト</button>
+        </form>
     </header>
 
     <main>
@@ -26,7 +31,6 @@
         <p>&copy; 2024 My Blog</p>
     </footer>
 
-    <!-- 基本的なJavaScriptの読み込み -->
     <script src="{% static 'myapp/js/main.js' %}"></script>
     
     <!-- カスタムJavaScriptのためのブロック -->

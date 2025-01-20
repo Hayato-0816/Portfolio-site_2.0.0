@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CategoryForm
+from about.models import MainCategory, SubCategory, Skill  # aboutアプリのモデルをインポート
 
 class LoginView(LoginView):
     template_name = 'authentication/login.html'  # テンプレートのパスを明示的に指定
@@ -70,6 +71,24 @@ class AboutView(LoginRequiredMixin,TemplateView):
     login_url = reverse_lazy('dashboard:login')
     raise_exception = False
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # 各モデルのデータを個別に取得
+        context['main_categories'] = MainCategory.objects.filter(
+            is_active=True
+        ).order_by('order')
+        
+        context['sub_categories'] = SubCategory.objects.filter(
+            is_active=True
+        ).order_by('main_category', 'order')
+        
+        context['skills'] = Skill.objects.filter(
+            is_active=True
+        ).order_by('sub_category', 'order')
+        
+        return context
+        
 class BlogView(LoginRequiredMixin,TemplateView):
     template_name = 'dashboard/blog/blog.html'
     login_url = reverse_lazy('dashboard:login')

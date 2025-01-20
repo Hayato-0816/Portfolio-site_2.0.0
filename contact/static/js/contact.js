@@ -3,31 +3,35 @@ function showConfirmation(){
         return;
     }
 
+    // 入力内容の表示
     document.getElementById("conf_company").textContent = document.getElementById("company_name_field").querySelector("input").value;
     document.getElementById("conf_name").textContent = document.getElementById("name_field").querySelector("input").value;
     document.getElementById("conf_email").textContent = document.getElementById("email_field").querySelector("input").value;
     document.getElementById("conf_phone").textContent = document.getElementById("phone_number_field").querySelector("input").value;
     document.getElementById("conf_message").textContent = document.getElementById("message_field").querySelector("textarea").value;
 
+    // cssの変更
     document.getElementById("contact_form").style.top = "40px";
     document.getElementById("input_confirmation").classList.add("input_active");
 
+    // ブラウザの戻るボタンを無効化
     window.history.pushState({page: 'contact form'}, '', window.location.pathname);
+
+    // ブラウザの戻るボタンを押したとき一度だけ実行
     window.addEventListener('popstate', function(event) {
         hideConfirmation();
     }, {once: true});
 }
 
 function validateForm() {
-    // 必須項目の取得
+    // validation対象の取得
     const name = document.getElementById("name_field").querySelector("input").value.trim();
     const email = document.getElementById("email_field").querySelector("input").value.trim();
     const message = document.getElementById("message_field").querySelector("textarea").value.trim();
     const phone = document.getElementById("phone_number_field").querySelector("input").value.trim();
-
+    
     let isValid = true;
-
-    // お名前のバリデーション
+    // 名前のvalidation
     const nameRequired = document.getElementById("name_required");
     if (!name) {
         nameRequired.dataset.tooltip = "お名前は必須項目です。";
@@ -42,7 +46,7 @@ function validateForm() {
         nameRequired.classList.remove("error");
     }
 
-    // メールアドレスのバリデーション
+    // メールアドレスのvalidation
     const emailRequired = document.getElementById("email_required");
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
@@ -58,7 +62,7 @@ function validateForm() {
         emailRequired.classList.remove("error");
     }
 
-    // お問い合わせ内容のバリデーション
+    // お問い合わせ内容のvalidation
     const messageRequired = document.getElementById("message_required");
     if (!message) {
         messageRequired.dataset.tooltip = "お問い合わせ内容は必須項目です。";
@@ -73,7 +77,7 @@ function validateForm() {
         messageRequired.classList.remove("error");
     }
 
-    // 電話番号のバリデーション（任意項目）
+    // 電話番号のvalidation（任意項目）
     const phoneRequired = document.getElementById("phone_required");
     const phoneRegex = /^[0-9-]{10,13}$/;
     if (phone && !phoneRegex.test(phone)) {
@@ -97,15 +101,30 @@ function validateForm() {
 }
 
 function hideConfirmation(){
+    // cssの変更
     document.getElementById("contact_form").style.position = "";
     document.getElementById("contact_form").style.top = "";
-    document.getElementById("input_confirmation").classList.remove("active");
+    document.getElementById("input_confirmation").classList.remove("input_active");
 }
 
-// フォーム送信処理を追加
+function hideCompletion(){
+    // 入力内容のクリア
+    document.getElementById("company_name_field").querySelector("input").value = "";
+    document.getElementById("name_field").querySelector("input").value = "";
+    document.getElementById("email_field").querySelector("input").value = "";
+    document.getElementById("phone_number_field").querySelector("input").value = "";
+    document.getElementById("message_field").querySelector("textarea").value = "";
+
+    // cssの変更
+    document.getElementById("contact_form").style.top = "80px";
+    document.getElementById("input_confirmation").classList.remove("input_active");
+    document.getElementById("completion").classList.remove("active");
+}
+
 async function submitForm(event) {
     event.preventDefault();
     
+    // フォームデータの取得
     const formData = new FormData(event.target);
     
     try {
@@ -127,11 +146,7 @@ async function submitForm(event) {
                     document.getElementById("completion").classList.add("active");
                 }, 500);
                 
-                // ブラウザバック無効化
                 window.history.pushState(null, '', window.location.pathname);
-                window.addEventListener('popstate', function() {
-                    window.history.pushState(null, '', window.location.pathname);
-                });
             } else {
                 alert('送信に失敗しました。もう一度お試しください。');
             }
@@ -144,5 +159,4 @@ async function submitForm(event) {
     }
 }
 
-// フォームにイベントリスナーを追加
 document.getElementById('contactForm').addEventListener('submit', submitForm);

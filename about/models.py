@@ -12,3 +12,40 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username}のプロフィール'
+
+class MainCategory(models.Model):
+    name = models.CharField('カテゴリー名', max_length=100)
+    title_ja = models.CharField('日本語名', max_length=100)
+    order = models.IntegerField('表示順', default=0)
+    is_active = models.BooleanField('有効', default=True)
+
+    def __str__(self):
+        return self.title_ja
+
+class SubCategory(models.Model):
+    main_category = models.ForeignKey(
+        MainCategory,
+        on_delete=models.CASCADE,
+        related_name='sub_categories'
+    )
+    name = models.CharField('カテゴリー名', max_length=100)
+    title_ja = models.CharField('日本語名', max_length=100)
+    order = models.IntegerField('表示順', default=0)
+    is_active = models.BooleanField('有効', default=True)
+
+    def __str__(self):
+        return f'{self.main_category.title_ja} - {self.title_ja}'
+
+class Skill(models.Model):
+    sub_category = models.ForeignKey(
+        SubCategory,
+        on_delete=models.CASCADE,
+        related_name='skills'
+    )
+    name = models.CharField('スキル名', max_length=100)
+    description = models.TextField('説明', blank=True)
+    order = models.IntegerField('表示順', default=0)
+    is_active = models.BooleanField('有効', default=True)
+
+    def __str__(self):
+        return self.name

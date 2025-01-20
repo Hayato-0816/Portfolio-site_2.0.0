@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/blog/blog.css' %}">
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
 {% endblock %}
 <!-- {% block title %}記事一覧{% endblock %} -->
 
 {% block content %}
-<!-- {% include 'header.html' %} -->
 <section class="blog_container zen-maru-gothic-light">
     <h1 class="page_title zen-kaku-gothic-antique-black">Blog</h1>
     <div class="search_container">
-        <form method="GET" action="{% url 'blog:search' %}" class="search-form">
-          <input type="text" name="q" class="search-input" placeholder="検索キーワードを入力">
-          <!-- <button type="submit" class="search-button">
-            <i class="fas fa-search"></i>
-          </button> -->
+        <form method="GET" action="{% url 'blog:search' %}" class="search_form">
+          <input type="text" name="q" class="search_input" placeholder="検索キーワードを入力">
         </form>
+        <div class="search-error-message"></div>
         <span class="search_word">
             <p>検索ワード: {{ query }}</p>
         </span>

@@ -3,15 +3,10 @@ from .models import *
 from django.shortcuts import render
 from django.db.models import Q
 
-# Category ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class CategoryListView(ListView):
-    model = Category
-    template_name = 'blog/category.html'
-
 # Post List ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/blog.html'
+    template_name = 'blog.html'
     context_object_name = 'posts'
     paginate_by = 10
 
@@ -23,10 +18,15 @@ class PostListView(ListView):
     def get_queryset(self):
         return Post.objects.filter(status='published')
 
+# Category ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'category.html'
+
 # Post Detail ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'blog/post_detail.html'
+    template_name = 'post_detail.html'
 
     def get_queryset(self):
         return Post.objects
@@ -45,7 +45,7 @@ def SearchView(request):
     else:
         results = []
         
-    return render(request, 'blog/search.html', {
+    return render(request, 'search.html', {
         'query': query,
         'results': results
     })

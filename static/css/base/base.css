@@ -20,30 +20,14 @@ body::-webkit-scrollbar{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     position: fixed;
     top: 1%;
     left: 200px;
     right: 20px;
     bottom: 2%;
     border-radius: 15px;
-    
-    background-color: transparent;
     overflow: scroll;
-
     background-color: #f5f5f5;
-    /* background-image:  */
-    /* 最前面の細い十字マーク */
-    /* linear-gradient(to right, transparent 6px, #f0f0f0 6px, #f0f0f0 7px, transparent 7px), */
-    /* linear-gradient(to bottom, transparent 6px, #f0f0f0 6px, #f0f0f0 7px, transparent 7px), */
-    /* 15個ごとの大きい十字マーク */
-    /* linear-gradient(to right, transparent 104px, #EDEDED 104px, #EDEDED 106px, transparent 106px), */
-    /* linear-gradient(to bottom, transparent 104px, #EDEDED 104px, #EDEDED 106px, transparent 106px); */
-    /* background-size:  */
-    /* 11px 11px,  小さい十字マークのグリッド */
-    /* 11px 11px, */
-    /* 165px 165px, 大きい十字マークのグリッド (14px × 15) */
-    /* 165px 165px; */
     background-position: center;
     box-shadow: inset 1px 1px 25px 0px rgba(0, 0, 0, 0.25);
 }
@@ -61,47 +45,6 @@ ul, li{
     list-style: none;
 }
 
-/* font ////////////////////////////////////////////////////////////////////////////////////// */
-@font-face {
-    font-family: "Zen Maru Gothic";
-    src: url("../../static/fonts/ZenMaruGothic-Light.ttf");
-}
-
-@font-face {
-    font-family: "Zen Kaku Gothic Antique";
-    src: url("../../static/fonts/ZenKakuGothicAntique-Black.ttf");
-}
-
-.zen-maru-gothic-light {
-    font-family: "Zen Maru Gothic", serif;
-    font-weight: 200;
-    font-style: normal;
-}
-
-.zen-maru-gothic-regular {
-    font-family: "Zen Maru Gothic", serif;
-    font-weight: 300;
-    font-style: normal;
-}
-
-.zen-kaku-gothic-antique-regular {
-    font-family: "Zen Kaku Gothic Antique", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-}
-
-.zen-kaku-gothic-antique-medium {
-    font-family: "Zen Kaku Gothic Antique", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-}
-
-.zen-kaku-gothic-antique-black {
-    font-family: "Zen Kaku Gothic Antique", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-}
-
 /* main ////////////////////////////////////////////////////////////////////////////////////// */
 main{
     min-height: 97vh;
@@ -117,13 +60,11 @@ footer{
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
     height: 2%;
     position: fixed;
     bottom: 0;
     left: 0px;
     right: 0px;
-
     font-size: 12px;
     letter-spacing: 5px;
 }

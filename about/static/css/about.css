@@ -106,7 +106,6 @@ h1{
 
 .about_container_inner_02_background{
     width: 100%;
-    /* background: linear-gradient(90deg, #F3F3F3, #EBEBEB, #F3F3F3); */
     display: flex;
     justify-content: center;
 }
@@ -121,6 +120,7 @@ h1{
     position: relative;
     color: #616161;
 }
+
 .about_skills::after{
     content: "";
     display: block;
@@ -139,8 +139,15 @@ h1{
     height: 600px;
 }
 
-.about_container_inner_02 .about_skills_h3{
+.about_skills_h3{
     font-size: 20px;
+}
+
+.about_skills_design,
+.about_skills_application{
+    position: relative;
+    left: 40%;
+    width: 60%;
 }
 
 .about_container_inner_02 ul{
@@ -156,16 +163,4 @@ h1{
 
 .about_container_inner_02 ul li{
     margin-top: 10px;
-}
-
-.about_skills_design{
-    position: relative;
-    left: 40%;
-    width: 60%;
-}
-
-.about_skills_application{
-    position: relative;
-    left: 40%;
-    width: 60%;
 }
