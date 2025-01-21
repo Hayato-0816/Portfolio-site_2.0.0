@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<section class="home_container zen-maru-gothic-light">
+<section class="home_container zen-maru-gothic-light" id="homeContainer">
+    <div class="background_layer"></div>
+    <div class="overlay_layer" id="overlayLayer"></div>
     <div class="home_container_inner">
         <h1 class="home_container_h1">
             <span>まちだ　はやと</span><span class="last_spacing">の</span>
@@ -20,4 +22,5 @@
         </div>
     </div>
 </section>
+<script defer src="{% static 'js/home.js' %}"></script>
 {% endblock %}

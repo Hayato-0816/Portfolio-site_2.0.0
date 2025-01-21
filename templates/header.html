@@ -1,4 +1,9 @@
 {% load static %}
+<div class="header-closer">
+    <label for="headercloser">
+        <div class="closer-arrow"></div>
+    </label>
+</div>
 <div class="headerLogo">
     <img src="{% static 'image/headerLogo.png' %}" alt="logo">
 </div>
@@ -6,7 +11,7 @@
     <div class="nav_item {% if request.path == '/' %}active{% endif %}">
         <a href="{% url 'home:home' %}">
             <div class="nav_name nav_home">
-                <img src="{% static 'image/home_icon.png' %}" alt="home">
+                <!-- <img src="{% static 'image/home_icon.png' %}" alt="home"> -->
                 <div>Home</div>
             </div>
         </a>
