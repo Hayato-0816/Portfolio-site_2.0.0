@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from blog.views import PostListView, PostDetailView
+from app.blog.views import PostListView, PostDetailView
 
 app_name = 'dashboard'
 
@@ -13,5 +13,6 @@ urlpatterns = [
     path('blog/', views.BlogView.as_view(), name='blog'),
     path('blog/post/', PostListView.as_view(), name='post_list'),
     path('blog/post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    path('blog/category/', views.BlogCategoryListView.as_view(), name='category_list'),
     path('gallery/', views.GalleryView.as_view(), name='gallery'),
 ] 

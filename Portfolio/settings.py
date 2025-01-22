@@ -38,12 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app.home',
+    'app.about',
+    'app.gallery',
+    'app.blog',
+    'app.contact',
     'dashboard',
-    'home',
-    'about',
-    'gallery',
-    'blog',
-    'contact',
 ]
 
 MIDDLEWARE = [
@@ -127,10 +127,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    BASE_DIR / 'home/static',
-    BASE_DIR / 'about/static',
-    BASE_DIR / 'blog/static',
-    BASE_DIR / 'contact/static',
+    BASE_DIR / 'app/home/static',
+    BASE_DIR / 'app/about/static',
+    BASE_DIR / 'app/gallery/static',
+    BASE_DIR / 'app/blog/static',
+    BASE_DIR / 'app/contact/static',
     BASE_DIR / 'dashboard/static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'

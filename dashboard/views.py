@@ -1,13 +1,13 @@
 from django.views.generic import *
 from django.contrib.auth.mixins import LoginRequiredMixin
-from blog.models import *
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CategoryForm
-from about.models import MainCategory, SubCategory, Skill  # aboutアプリのモデルをインポート
+from app.blog.models import *
+from app.about.models import *
 
 class LoginView(LoginView):
     template_name = 'authentication/login.html'  # テンプレートのパスを明示的に指定
@@ -27,11 +27,11 @@ class DashboardView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.filter(author=self.request.user)
+        return BlogPost.objects.filter(author=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        context['categories'] = BlogCategory.objects.all()
         context['form'] = CategoryForm()
         context['is_dashboard'] = True
         return context
@@ -51,7 +51,7 @@ class DashboardView(LoginRequiredMixin, ListView):
 
         if 'delete_category' in request.POST:
             category_id = request.POST.get('category_id')
-            category = get_object_or_404(Category, id=category_id)
+            category = get_object_or_404(BlogCategory, id=category_id)
             category.delete()
             return redirect('blog:home')
 
@@ -75,15 +75,15 @@ class AboutView(LoginRequiredMixin,TemplateView):
         context = super().get_context_data(**kwargs)
         
         # 各モデルのデータを個別に取得
-        context['main_categories'] = MainCategory.objects.filter(
+        context['main_categories'] = AboutMainCategory.objects.filter(
             is_active=True
         ).order_by('order')
         
-        context['sub_categories'] = SubCategory.objects.filter(
+        context['sub_categories'] = AboutSubCategory.objects.filter(
             is_active=True
         ).order_by('main_category', 'order')
         
-        context['skills'] = Skill.objects.filter(
+        context['skills'] = AboutSkill.objects.filter(
             is_active=True
         ).order_by('sub_category', 'order')
         
@@ -91,6 +91,11 @@ class AboutView(LoginRequiredMixin,TemplateView):
         
 class BlogView(LoginRequiredMixin,TemplateView):
     template_name = 'dashboard/blog/blog.html'
+    login_url = reverse_lazy('dashboard:login')
+    raise_exception = False
+
+class BlogCategoryListView(LoginRequiredMixin,TemplateView):
+    template_name = 'dashboard/blog/category_edit.html'
     login_url = reverse_lazy('dashboard:login')
     raise_exception = False
 
