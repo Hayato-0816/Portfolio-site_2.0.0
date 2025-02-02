@@ -6,8 +6,8 @@
 <!-- {% block title %}記事一覧{% endblock %} -->
 
 {% block content %}
-<section class="blog_container zen_maru_gothic_light">
-    <h1 class="page_title zen_kaku_gothic_antique_black">Blog</h1>
+<section class="blog_container zen-maru-gothic-regular">
+    <h1 class="page_title zen-kaku-gothic-antique-black">Blog</h1>
     <div class="search_container">
         <form method="GET" action="{% url 'blog:search' %}" class="search_form">
             <input type="text" name="q" class="search_input" placeholder="検索キーワードを入力">
@@ -15,7 +15,7 @@
         <div class="search-error-message"></div>
     </div>
     <div class="category_container">
-        <h2 class="zen_maru_gothic_regular">カテゴリ</h2>
+        <h2 class="zen-maru-gothic-regular">カテゴリ</h2>
         <ul class="category_list" id="category_sortable">
             {% for category in categories %}
             <li class="category_box" draggable="true" data-category-id="{{ category.id }}" data-category-name="{{ category.name }}">
@@ -27,7 +27,7 @@
         </ul>
     </div>
     <div class="article_container">
-        <h2 class="zen_maru_gothic_regular">記事一覧</h2>
+        <h2 class="zen-maru-gothic-regular">記事一覧</h2>
         <div class="article_list">
             {% for post in posts %}
             <a href="{{ post.get_absolute_url }}" class="blog_article">
@@ -35,7 +35,7 @@
                     <h3>{{ post.title }}</h3>
                     <p class="meta">
                         # {{ post.category.name }} |
-                        投稿日: {{ post.created_at|date:"Y/m/d" }}
+                        投稿日: {{ post.published_date|date:"Y/m/d" }}
                     </p>
                     <div class="content_preview">
                         {{ post.content|truncatewords:30|truncatechars:30 }}

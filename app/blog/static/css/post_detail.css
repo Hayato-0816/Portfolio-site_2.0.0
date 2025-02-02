@@ -54,6 +54,7 @@
 article .content{
     height: 100%;
     margin-top: 70px;
+    white-space: pre-wrap;
 }
 
 .table_of_contents{

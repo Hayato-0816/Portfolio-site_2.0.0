@@ -20,13 +20,13 @@
                 </li>
             {% endfor %}
         </ul>
-        <p><a href="{% url 'dashboard:category_edit' %}">カテゴリーの編集</a></p>
+        <p><a href="">カテゴリーの編集</a></p>
     </div>
 
     <div class="articles">
         {% for post in posts %}
         <article>
-            <h2><a href="{% url 'dashboard:post_detail' post.pk %}">{{ post.title }}</a></h2>
+            <h2><a href="">{{ post.title }}</a></h2>
             <p class="meta">
                 カテゴリー: {{ post.category.name }} |
                 投稿日: {{ post.created_at|date:"Y/m/d" }}
@@ -35,12 +35,12 @@
         {% empty %}
         <p>記事がありません。</p>
         {% endfor %}
-        <a href="{% url 'dashboard:post_create' %}">投稿の追加</a>
+        <a href="">投稿の追加</a>
     </div>
     {% if is_paginated %}
     <div class="pagination">
         {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+        <a href="">前へ</a>
         {% endif %}
         
         <span class="current">
@@ -48,7 +48,7 @@
         </span>
 
         {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+        <a href="">次へ</a>
         {% endif %}
     </div>
     {% endif %}

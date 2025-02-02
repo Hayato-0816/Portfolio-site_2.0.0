@@ -1,7 +1,17 @@
 from django import forms
-from app.blog.models import BlogCategory
+from app.about.models import *
 
-class CategoryForm(forms.ModelForm):
+class AboutMainCategoryForm(forms.ModelForm):
     class Meta:
-        model = BlogCategory
-        fields = ['name']  # slugは自動生成されるので除外
+        model = AboutMainCategory
+        fields = ['name', 'icon_image', 'order', 'is_active']
+
+class AboutSubCategoryForm(forms.ModelForm):
+    class Meta:
+        model = AboutSubCategory
+        fields = ['name', 'order', 'is_active']
+
+class AboutSkillForm(forms.ModelForm):
+    class Meta:
+        model = AboutSkill
+        fields = ['name', 'order', 'is_active']

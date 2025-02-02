@@ -1,0 +1,9 @@
+.about_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.about_editable {
+    display: flex;
+}

@@ -1,7 +1,7 @@
 /* フォントファイルの読み込み */
 @font-face {
     font-family: "Zen Maru Gothic";
-    src: url("../../fonts/Zen_Maru_Gothic/ZenMaruGothic-Light.ttf");
+    src: url("../../fonts/Zen_Maru_Gothic/ZenMaruGothic-Regular.ttf");
 }
 
 @font-face {

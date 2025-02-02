@@ -6,18 +6,18 @@
 
 {% block content %}
 <h1 class="page_title zen-kaku-gothic-antique-black">About</h1>
-<section class="about_container zen-maru-gothic-light">
-    <div class="scroll_bar zen-maru-gothic-light">Scroll</div>
-    <div class="about_container_inner_01_background">
-        <div class="about_container_inner_01">
-            <div class="about_container_inner_01_left">
+<section class="about_section zen-maru-gothic-light">
+    <div class="scroll_indicator zen-maru-gothic-light">Scroll</div>
+    <div class="about_container_01_background">
+        <div class="about_container_01">
+            <div class="about_container_01_left">
                 <div class="about_name">
-                    <p class="name_eng">
-                        <span>Machida Hayato</span>
+                    <p class="name_eng zen-maru-gothic-regular">
+                        Machida Hayato
                     </p>
-                    <h2 class="name_jp zen-maru-gothic-light">まちだ　はやと</h2>
+                    <h2 class="name_jp zen-maru-gothic-black">まちだ　はやと</h2>
                 </div>
-                <div class="about_explanation">
+                <div class="about_explanation zen-maru-gothic-black">
                     <p class="about_explanation_01">
                         1997年夏生まれの神奈川県出身。<br>
                         モバイル通信のエンジニアとして働く傍らで、WebデザインやWebアプリケーションの開発に取り組んできました。
@@ -28,30 +28,33 @@
                     </p>
                 </div>
             </div>
-            <div class="about_container_inner_01_right">
+            <div class="about_container_01_right">
                 <img src="{% static '' %}" alt="about_img">
             </div>
         </div>
     </div>
-    <div class="about_container_inner_02_background">
-        <div class="about_container_inner_02">
-            <h2 class="about_skills">できること</h2>
+    <div class="about_container_02_background">
+        <div class="about_container_02">
+            <h2>できること</h2>
             <div class="about_skills_container">
                 {% for main_category in main_categories %}
-                    <div class="about_skills_{{ main_category.name|lower }}">
-                        <h3 class="about_skills_h3 zen-maru-gothic-regular">{{ main_category.title_ja }}</h3>
-                        <ul class="about_skills_{{ main_category.name|lower }}_list zen-maru-gothic-regular">
-                            {% for sub_category in main_category.sub_categories.all %}
-                                {% if sub_category.is_active %}
-                                    <li>{{ sub_category.title_ja }}</li>
-                                    {% for skill in sub_category.skills.all %}
-                                        {% if skill.is_active %}
-                                            <li>{{ skill.name }}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+                    <div class="about_skills_container_item zen-maru-gothic-black">
+                        <img src="{{ main_category.icon_image.url }}" alt="category_icon">
+                        <div class="about_skills_list">
+                            <h3>{{ main_category.name }}</h3>
+                            <ul class="about_skills_{{ main_category.name|lower }}_list">
+                                {% for sub_category in main_category.sub_categories.all %}
+                                    {% if sub_category.is_active %}
+                                        <li class="sub_categorie">{{ sub_category.title_ja }}</li>
+                                        {% for skill in sub_category.skills.all %}
+                                            {% if skill.is_active %}
+                                                <li class="skill">- {{ skill.name }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 {% endfor %}
             </div>

@@ -1,29 +1,45 @@
 {% extends 'admin_base.html' %}
 
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/about/about.css' %}">
+{% endblock %}
+
 {% block content %}
     <!-- <h1>About Dashboard</h1> -->
-<h2 class="about_skills">できること</h2>
-<div class="about_skills_container">
-    {% for main_category in main_categories %}
-        <div class="about_skills_{{ main_category.name|lower }}">
-            <h3 class="about_skills_h3 zen-maru-gothic-regular">{{ main_category.title_ja }}</h3>
-            <ul class="about_skills_{{ main_category.name|lower }}_list zen-maru-gothic-regular">
-                {% for sub_category in main_category.sub_categories.all %}
-                    {% if sub_category.is_active %}
-                        <li>{{ sub_category.title_ja }}</li>
-                        {% for skill in sub_category.skills.all %}
-                            {% if skill.is_active %}
-                                <li>{{ skill.name }}</li>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+<section class="dashboard about_section">
+    <form class="current_about">
+        {% csrf_token %}
+        <h2 class="about_skills">できること</h2>
+        {% for main_category in about_data.main_categories %}
+            <div class="main_category about_editable">
+                <h3>{{ main_category.name }}</h3>
+                {{ form.as_p }}
+            </div>
+            <!-- {% for sub_category in main_category.sub_categories.all %}
+                <div class="sub_category about_editable">
+                    <h4>{{ sub_category.name }}</h4>
+                </div>
+                {% for skill in sub_category.skills.all %}
+                    <div class="skill about_editable">
+                        <p>{{ skill.name }}</p>
+                    </div>
                 {% endfor %}
-            </ul>
-        </div>
-    {% endfor %}
-</div>
-{% for category in categories %}
-    <!-- aboutアプリのモデルデータを表示 -->
-    <h2>{{ main_category.title_ja }}</h2>
-{% endfor %}
+            {% endfor %} -->
+        {% endfor %}
+    </form>
+    <div class="about_skills_container">
+        <form action="" method="post" class="about_category_form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            
+            <div class="field" id="">
+                <label for="{{ form.name.id_for_label }}">メインカテゴリー</label>
+                {{ form.as_p }}
+            </div>
+            <button type="submit">保存</button>
+        </form>
+    </div>
+</section>
+<script src="{% static 'js/about/about.js' %}"></script>
 {% endblock %}

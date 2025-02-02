@@ -6,16 +6,16 @@ h1{
     z-index: -100;
 }
 
-.about_container{
+.about_section{
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
 }
 
-/* scroll_bar ////////////////////////////////////////////////////////////////////////////////////// */
+/* scroll_indicator ////////////////////////////////////////////////////////////////////////////////////// */
 
-.scroll_bar{
+.scroll_indicator{
     position: absolute;
     top: 740px;
     left: 55px;
@@ -25,7 +25,7 @@ h1{
     z-index: 100;
 }
 
-.scroll_bar::after{
+.scroll_indicator::after{
     content: "";
     display: block;
     width: 200px;
@@ -34,10 +34,10 @@ h1{
     position: absolute;
     bottom: 0;
     left: -40px;
-    animation: scroll_bar_animation 2s linear infinite;
+    animation: scroll_indicator_animation 2s linear infinite;
 }
 
-@keyframes scroll_bar_animation {
+@keyframes scroll_indicator_animation {
     0% {
         left: -40px;
         opacity: 0;
@@ -52,15 +52,15 @@ h1{
     }
 }
 
-/* about_container_inner_01 ////////////////////////////////////////////////////////////////////////////////////// */
+/* about_container_01 ////////////////////////////////////////////////////////////////////////////////////// */
 
-.about_container_inner_01_background{
+.about_container_01_background{
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.about_container_inner_01{
+.about_container_01{
     display: flex;
     justify-content: space-between;
     width: 52%;
@@ -68,7 +68,7 @@ h1{
     margin: 240px;
 }
 
-.about_container_inner_01_left{
+.about_container_01_left{
     width: 46%;
 }
 
@@ -84,44 +84,50 @@ h1{
 }
 
 .name_jp{
+    color: #333333;
     font-size: 40px;
+    letter-spacing: 5px;
+    font-weight: 400;
 }
 
 .about_explanation{
+    color: #333333;
     margin-top: 40px;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 3px;
 }
 
 .about_explanation_02{
     margin-top: 30px;
 }
 
-.about_container_inner_01_right{
+.about_container_01_right{
     width: 38%;
     height: 460px;
     background-color: #D9D9D9;
 }
 
-/* about_container_inner_02 ////////////////////////////////////////////////////////////////////////////////////// */
+/* about_container_02 ////////////////////////////////////////////////////////////////////////////////////// */
 
-.about_container_inner_02_background{
+.about_container_02_background{
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.about_container_inner_02{
+.about_container_02{
     width: 52%;
     margin: 140px;
 }
 
-.about_skills{
+.about_container_02 h2{
     font-size: 30px;
     position: relative;
-    color: #616161;
+    color: #333333;
 }
 
-.about_skills::after{
+.about_container_02 h2::after{
     content: "";
     display: block;
     width: 76%;
@@ -137,20 +143,32 @@ h1{
     flex-direction: column;
     justify-content: space-around;
     height: 600px;
+    letter-spacing: 2px;
 }
 
-.about_skills_h3{
-    font-size: 20px;
+.about_skills_container_item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 400;
 }
 
-.about_skills_design,
-.about_skills_application{
+.about_skills_container_item img{
+    width: 150px;
+    margin-left: 60px;
+}
+
+.about_skills_list{
     position: relative;
-    left: 40%;
     width: 60%;
 }
 
-.about_container_inner_02 ul{
+.about_skills_list h3{
+    font-size: 20px;
+}
+
+.about_skills_list ul{
     font-size: 12px;
     display: flex;
     flex-direction: column;
@@ -161,6 +179,10 @@ h1{
     margin-top: 40px;
 }
 
-.about_container_inner_02 ul li{
+.about_skills_list ul li{
     margin-top: 10px;
+}
+
+.about_skills_list .skill{
+    margin-left: 20px;
 }

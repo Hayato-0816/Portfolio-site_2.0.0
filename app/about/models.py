@@ -16,6 +16,7 @@ class Profile(models.Model):
 class AboutMainCategory(models.Model):
     name = models.CharField('カテゴリー名', max_length=100)
     title_ja = models.CharField('日本語名', max_length=100)
+    icon_image = models.ImageField('アイコン', blank=True)
     order = models.IntegerField('表示順', default=0)
     is_active = models.BooleanField('有効', default=True)
 

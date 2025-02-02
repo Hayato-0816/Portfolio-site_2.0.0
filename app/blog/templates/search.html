@@ -6,7 +6,7 @@
 <!-- {% block title %}記事一覧{% endblock %} -->
 
 {% block content %}
-<section class="blog_container zen-maru-gothic-light">
+<section class="blog_container zen-maru-gothic-regular">
     <h1 class="page_title zen-kaku-gothic-antique-black">Blog</h1>
     <div class="search_container">
         <form method="GET" action="{% url 'blog:search' %}" class="search_form">
@@ -26,7 +26,7 @@
                     <h3>{{ post.title }}</h3>
                     <p class="meta">
                         # {{ post.category.name }} |
-                        投稿日: {{ post.created_at|date:"Y/m/d" }}
+                        投稿日: {{ post.published_date|date:"Y/m/d" }}
                     </p>
                     <div class="content-preview">
                         {{ post.content|truncatewords:30|truncatechars:30 }}

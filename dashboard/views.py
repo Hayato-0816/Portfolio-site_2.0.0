@@ -4,10 +4,10 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CategoryForm
+from .forms import AboutMainCategoryForm, AboutSubCategoryForm, AboutSkillForm
 from app.blog.models import *
 from app.about.models import *
+
 
 class LoginView(LoginView):
     template_name = 'authentication/login.html'  # テンプレートのパスを明示的に指定
@@ -32,7 +32,7 @@ class DashboardView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = BlogCategory.objects.all()
-        context['form'] = CategoryForm()
+        # context['form'] = CategoryForm()
         context['is_dashboard'] = True
         return context
 
@@ -44,21 +44,21 @@ class DashboardView(LoginRequiredMixin, ListView):
             logout(request)
             return redirect('dashboard:login')
 
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('blog:home')
+        # form = CategoryForm(request.POST)
+        # if form.is_valid():
+        #     form.save()
+        #     return redirect('blog:home')
 
-        if 'delete_category' in request.POST:
-            category_id = request.POST.get('category_id')
-            category = get_object_or_404(BlogCategory, id=category_id)
-            category.delete()
-            return redirect('blog:home')
+        # if 'delete_category' in request.POST:
+        #     category_id = request.POST.get('category_id')
+        #     category = get_object_or_404(BlogCategory, id=category_id)
+        #     category.delete()
+        #     return redirect('blog:home')
 
-        # フォームが無効な場合
-        context = self.get_context_data()
-        context['form'] = form
-        return render(request, self.template_name, context)
+        # # フォームが無効な場合
+        # context = self.get_context_data()
+        # context['form'] = form
+        # return render(request, self.template_name, context)
     
     def logout(self, request, *args, **kwargs):
         if 'logout' in request.POST:
@@ -66,29 +66,23 @@ class DashboardView(LoginRequiredMixin, ListView):
             return redirect('dashboard:login')
         return super().post(request, *args, **kwargs)
 
-class AboutView(LoginRequiredMixin,TemplateView):
+class AboutView(LoginRequiredMixin,FormView):
     template_name = 'dashboard/about/about.html'
     login_url = reverse_lazy('dashboard:login')
     raise_exception = False
+    form_class = AboutMainCategoryForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # 各モデルのデータを個別に取得
-        context['main_categories'] = AboutMainCategory.objects.filter(
-            is_active=True
-        ).order_by('order')
-        
-        context['sub_categories'] = AboutSubCategory.objects.filter(
-            is_active=True
-        ).order_by('main_category', 'order')
-        
-        context['skills'] = AboutSkill.objects.filter(
-            is_active=True
-        ).order_by('sub_category', 'order')
+        context['about_data'] = {
+            'main_categories': AboutMainCategory.objects.all(),
+            'sub_categories': AboutSubCategory.objects.all(),
+            'skills': AboutSkill.objects.all(),
+        }
         
         return context
-        
+
 class BlogView(LoginRequiredMixin,TemplateView):
     template_name = 'dashboard/blog/blog.html'
     login_url = reverse_lazy('dashboard:login')

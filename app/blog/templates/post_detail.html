@@ -3,21 +3,21 @@
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
 {% endblock %}
-{% block title %}{{ post.title }} - {{ block.super }}{% endblock %}
+{% block title %}{{ blogpost.title }} - {{ block.super }}{% endblock %}
 
 {% block content %}
 <section class="article-detail">
     <div class="article_scroller">
         <div class="article_content">
-            <h1>{{ post.title }}</h1>
+            <h1>{{ blogpost.title }}</h1>
             <div class="articles">
                 <article>
                     <p class="meta">
-                        # {{ post.category.name }} |
-                        投稿日: {{ post.created_at|date:"Y/m/d" }}
+                        # {{ blogpost.category.name }} |
+                        投稿日: {{ blogpost.published_date|date:"Y/m/d" }}
                     </p>
                     <div class="content">
-                        {{ post.content|linebreaks }}
+                        {{ blogpost.content|linebreaks }}
                     </div>
                 </article>
             </div>
