@@ -8,46 +8,93 @@
 {% block content %}
     <!-- <h1>About Dashboard</h1> -->
 <section class="dashboard about_section">
-    <form class="current_about">
-        {% csrf_token %}
-        <h2 class="about_skills">できること</h2>
-        {% for main_category in about_data.main_categories %}
-            <div class="main_category about_editable">
-                <h3>{{ main_category.name }}</h3>
-                {{ main_category_form.name }}
-            </div>
-            {% for sub_category in main_category.sub_categories.all %}
-                <div class="sub_category about_editable">
-                    <h4>{{ sub_category.name }}</h4>
-                </div>
-                {% for skill in sub_category.skills.all %}
-                    <div class="skill about_editable">
-                        <p>{{ skill.name }}</p>
+    <div class="current_about_container">
+        <div class="current_about_position">
+            <div class="current_about">
+                <div class="current_about_form">
+                    <h2 class="about_skills">できること</h2>
+                    <div class="categorys zen-maru-gothic-black">
+                        {% for main_category in about_data.main_categories %}
+                            <div class="main_category category" data-id="{{ main_category.id }}">
+                                <h3>■ {{ main_category.name }}</h3>
+                                <div class="edit_delete_button">
+                                    <button type="button">edit</button>
+                                    <button type="button">delete</button>
+                                </div>
+                            </div>
+                            {% for sub_category in main_category.sub_categories.all %}
+                                <div class="sub_category category" data-id="{{sub_category.id}}">
+                                    <h4>{{ sub_category.name }}</h4>
+                                    <div class="edit_delete_button">
+                                        <button type="button">edit</button>
+                                        <button type="button">delete</button>
+                                    </div>
+                                </div>
+                                {% for skill in sub_category.skills.all %}
+                                    <div class="skill category" data-id="{{ skill.id }}">
+                                        <p> - {{ skill.name }}</p>
+                                        <div class="edit_delete_button">
+                                            <button type="button">edit</button>
+                                            <button type="button">delete</button>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
                     </div>
-                {% endfor %}
-            {% endfor %}
-        {% endfor %}
-    </form>
-    <div class="create_about_container">
-        <form action="" method="post" class="about_category_form">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <div class="field" id="">
-                <label for="{{ form.name.id_for_label }}">メインカテゴリー</label>
-                {{ main_category_form.as_p }}
+                </div>
             </div>
-            <button type="submit">保存</button>
-        </form>
-        <form action="" method="post" class="about_category_form">
-            {% csrf_token %}
-            {{ sub_category_form.as_p }}
-            <button type="submit">保存</button>
-        </form>
-        <form action="" method="post" class="about_category_form">
-            {% csrf_token %}
-            {{ skill_form.as_p }}
-            <button type="submit">保存</button>
-        </form>
+            <div class="add_button">
+                <button type="buttson">create new category >></button>
+            </div>
+        </div>
+    </div>
+    <div class="edit_contaner">
+        <div class="edit_main_category_contaner">
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="">
+                <input type="hidden" name="type" value="">
+                <div class="field">
+                    <label>カテゴリー名</label>
+                    <input type="text" name="name" value="">
+                </div>
+                <button type="submit">更新</button>
+            </form>
+        </div>
+        <div class="create_about_container">
+            <form action="{% url 'dashboard:about' %}" method="post" class="about_category_form" id="mainCategoryForm">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="field" id="">
+                    <label for="{{ form.name.id_for_label }}">メインカテゴリー</label>
+                    <input type="hidden" name="form_type" value="main_category">
+                    {{ main_category_form.as_p }}
+                </div>
+                <button type="submit" form="mainCategoryForm">保存</button>
+            </form>
+            <form action="{% url 'dashboard:about' %}" method="post" class="about_category_form" id="subCategoryForm">
+                {% csrf_token %}
+                <div class="field" id="">
+                    <label for="{{ form.name.id_for_label }}">サブカテゴリー</label>
+                    <input type="hidden" name="form_type" value="sub_category">
+                    {{ sub_category_form.as_p }}
+                </div>
+                <button type="submit" form="subCategoryForm">保存</button>
+            </form>
+            <form action="{% url 'dashboard:about' %}" method="post" class="about_category_form" id="skillForm">
+                {% csrf_token %}
+                <div class="field" id="">
+                    <label for="{{ form.name.id_for_label }}">スキル</label>
+                    <input type="hidden" name="form_type" value="skill">
+                    {{ skill_form.as_p }}
+                </div>
+                <button type="submit" form="skillForm">保存</button>
+            </form>
+            <div class="completion" id="completion">
+                <h1>保存しました</h1>
+            </div>
+        </div>
     </div>
 </section>
 <script src="{% static 'js/about/about.js' %}"></script>

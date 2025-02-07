@@ -1,5 +1,5 @@
 /* entire   ////////////////////////////////////////////////////////////////////////////////////// */
-*, html, body, main{
+*, html, body, main, section{
     margin: 0;
     padding: 0;
     max-width: 100vw;
@@ -22,7 +22,7 @@ body {
 }
 
 header{
-    width: 200px;
+    width: 10.4%;
     height: 100%;
     position: absolute;
     top: 0;
@@ -84,8 +84,10 @@ header nav{
 }
 
 main{
-    margin-left: 200px;
-    padding: 20px;
+    width: 89.6%;
+    height: 100%;
+    position: relative;
+    left: 10.4%;
 }
 
 footer{

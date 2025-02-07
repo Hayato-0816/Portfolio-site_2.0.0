@@ -9,9 +9,9 @@ class AboutMainCategoryForm(forms.ModelForm):
 class AboutSubCategoryForm(forms.ModelForm):
     class Meta:
         model = AboutSubCategory
-        fields = ['name', 'order', 'is_active']
+        fields = ['main_category', 'name', 'order', 'is_active']
 
 class AboutSkillForm(forms.ModelForm):
     class Meta:
         model = AboutSkill
-        fields = ['name', 'order', 'is_active']
+        fields = ['sub_category', 'name', 'order', 'is_active']

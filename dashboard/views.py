@@ -4,6 +4,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
 from django.shortcuts import redirect, render
+from django.http import JsonResponse
 from .forms import AboutMainCategoryForm, AboutSubCategoryForm, AboutSkillForm
 from app.about.models import *
 from app.blog.models import *
@@ -66,7 +67,7 @@ class DashboardView(LoginRequiredMixin, ListView):
             return redirect('dashboard:login')
         return super().post(request, *args, **kwargs)
 
-class AboutView(LoginRequiredMixin, View):  # FormViewからViewに変更
+class AboutView(LoginRequiredMixin,TemplateView):
     template_name = 'dashboard/about/about.html'
     login_url = reverse_lazy('dashboard:login')
     raise_exception = False
@@ -88,35 +89,52 @@ class AboutView(LoginRequiredMixin, View):  # FormViewからViewに変更
         }
         return render(request, self.template_name, context)
 
-    def create_about_data(self, request):
-        main_category_form = AboutMainCategoryForm(request.POST)
-        sub_category_form = AboutSubCategoryForm(request.POST)
-        skill_form = AboutSkillForm(request.POST)
+    def post(self, request):
+        form_type = request.POST.get('form_type')
         
-        if main_category_form.is_valid():
-            main_category_form.save()
-            return redirect('dashboard:about')
+        if form_type == 'main_category':
+            form = AboutMainCategoryForm(request.POST)
+        elif form_type == 'sub_category':
+            form = AboutSubCategoryForm(request.POST)
+        elif form_type == 'skill':
+            form = AboutSkillForm(request.POST)
+        else:
+            return JsonResponse({'status': 'error', 'message': '不正なフォームタイプです'})
+
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success'})
         
-        if sub_category_form.is_valid():
-            sub_category_form.save()
-            return redirect('dashboard:about')
-        
-        if skill_form.is_valid():
-            skill_form.save()
-            return redirect('dashboard:about')
-        
-        # フォームが無効な場合、エラーを含めて再表示
-        context = {
-            'about_data': {
-                'main_categories': AboutMainCategory.objects.all(),
-                'sub_categories': AboutSubCategory.objects.all(),
-                'skills': AboutSkill.objects.all(),
-            },
-            'main_category_form': main_category_form,
-            'sub_category_form': sub_category_form,
-            'skill_form': skill_form
-        }
-        return render(request, self.template_name, context)
+        return JsonResponse({
+            'status': 'error',
+            'errors': form.errors
+        })
+    
+        def get_about_item(request, type, pk):
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                try:
+                    # タイプに応じてモデルを選択
+                    if type == 'main':
+                        item = get_object_or_404(AboutMainCategory, pk=pk)
+                    elif type == 'sub':
+                        item = get_object_or_404(AboutSubCategory, pk=pk)
+                    elif type == 'skill':
+                        item = get_object_or_404(AboutSkill, pk=pk)
+                    else:
+                        return JsonResponse({'error': '不正なタイプです'}, status=400)
+
+                    # オブジェクトのデータをJSONで返す
+                    return JsonResponse({
+                        'status': 'success',
+                        'item': {
+                            'id': item.id,
+                            'name': item.name,
+                            'type': type
+                        }
+                    })
+                except Exception as e:
+                    return JsonResponse({'error': str(e)}, status=500)
+        return JsonResponse({'error': '不正なリクエストです'}, status=400)
     
 
 
