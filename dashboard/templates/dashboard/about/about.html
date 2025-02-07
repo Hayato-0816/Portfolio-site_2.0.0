@@ -14,9 +14,9 @@
         {% for main_category in about_data.main_categories %}
             <div class="main_category about_editable">
                 <h3>{{ main_category.name }}</h3>
-                {{ form.as_p }}
+                {{ main_category_form.name }}
             </div>
-            <!-- {% for sub_category in main_category.sub_categories.all %}
+            {% for sub_category in main_category.sub_categories.all %}
                 <div class="sub_category about_editable">
                     <h4>{{ sub_category.name }}</h4>
                 </div>
@@ -25,18 +25,27 @@
                         <p>{{ skill.name }}</p>
                     </div>
                 {% endfor %}
-            {% endfor %} -->
+            {% endfor %}
         {% endfor %}
     </form>
-    <div class="about_skills_container">
+    <div class="create_about_container">
         <form action="" method="post" class="about_category_form">
             {% csrf_token %}
             {{ form.non_field_errors }}
-            
             <div class="field" id="">
                 <label for="{{ form.name.id_for_label }}">メインカテゴリー</label>
-                {{ form.as_p }}
+                {{ main_category_form.as_p }}
             </div>
+            <button type="submit">保存</button>
+        </form>
+        <form action="" method="post" class="about_category_form">
+            {% csrf_token %}
+            {{ sub_category_form.as_p }}
+            <button type="submit">保存</button>
+        </form>
+        <form action="" method="post" class="about_category_form">
+            {% csrf_token %}
+            {{ skill_form.as_p }}
             <button type="submit">保存</button>
         </form>
     </div>
