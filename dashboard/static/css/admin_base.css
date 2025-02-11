@@ -24,7 +24,7 @@ body {
 header{
     width: 10.4%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;
@@ -38,7 +38,7 @@ header::after{
     width: 1px;
     height: 98%;
     position: absolute;
-    right: 0;
+    right: 1px;
     background-color: #c2c2c2;
 }
 
@@ -88,6 +88,7 @@ main{
     height: 100%;
     position: relative;
     left: 10.4%;
+    overflow-x: hidden;
 }
 
 footer{

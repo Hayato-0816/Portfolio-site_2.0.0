@@ -64,17 +64,13 @@
     flex-direction: column;
 }
 
-.categorys button {
-    width: 50px;
+.category_delete_button {
+    width: 120px;
     height: 20px;
     border-radius: 5px;
-}
-
-.edit_delete_button {
-    width: 120px;
     opacity: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     transition: opacity 0.2s ease-in-out;
 }
@@ -135,15 +131,16 @@
 }
 
 /* Right ////////////////////////////////////////////////////////////////////////////////*/
-.edit_contaner {
+.edit_create_container{
     width: 42%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.create_about_container, .edit_main_category_contaner {
+.create_about_container, .edit_about_contaner {
     width: 90%;
     height: 80%;
     display: flex;
@@ -152,9 +149,14 @@
     align-items: left;
 }
 
-.create_about_container {
+.edit_about_contaner{
     display: none;
 }
+
+.create_about_container{
+    display: none;
+}
+
 
 .completion {
     display: none;

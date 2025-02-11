@@ -142,7 +142,6 @@ h1{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 600px;
     letter-spacing: 2px;
 }
 
@@ -152,6 +151,7 @@ h1{
     align-items: center;
     justify-content: space-between;
     font-weight: 400;
+    margin-top: 50px;
 }
 
 .about_skills_container_item img{
@@ -176,7 +176,7 @@ h1{
     position: relative;
     left: 7%;
     width: 93%;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .about_skills_list ul li{

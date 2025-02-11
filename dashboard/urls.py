@@ -12,6 +12,8 @@ urlpatterns = [
     path('about/', views.AboutView.as_view(), name='about'),
     path('about/create/', views.AboutView.as_view(), name='about_create'),
     path('about/<str:type>/<int:pk>/get/', views.AboutView.as_view(http_method_names=['get']), {'action': 'get_about_item'}, name='get_about_item'),
+    path('about/<str:type>/<int:pk>/update/', views.AboutView.as_view(http_method_names=['post']), {'action': 'update_about_item'}, name='update_about_item'),
+    path('about/<str:type>/<int:pk>/delete/', views.AboutView.as_view(http_method_names=['post']), {'action': 'delete_about_item'}, name='delete_about_item'),
     path('blog/', views.BlogView.as_view(), name='blog'),
     path('blog/post/', PostListView.as_view(), name='post_list'),
     path('blog/post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),

@@ -1,6 +1,7 @@
 {% extends 'admin_base.html' %}
 
 {% load static %}
+{% block title %}About{% endblock %}
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/dashboard/about/about.css' %}">
 {% endblock %}
@@ -17,26 +18,17 @@
                         {% for main_category in about_data.main_categories %}
                             <div class="main_category category" data-id="{{ main_category.id }}">
                                 <h3>■ {{ main_category.name }}</h3>
-                                <div class="edit_delete_button">
-                                    <button type="button">edit</button>
-                                    <button type="button">delete</button>
-                                </div>
+                                <button class="category_delete_button" type="button">delete</button>
                             </div>
                             {% for sub_category in main_category.sub_categories.all %}
                                 <div class="sub_category category" data-id="{{sub_category.id}}">
                                     <h4>{{ sub_category.name }}</h4>
-                                    <div class="edit_delete_button">
-                                        <button type="button">edit</button>
-                                        <button type="button">delete</button>
-                                    </div>
+                                    <button class="category_delete_button" type="button">delete</button>
                                 </div>
                                 {% for skill in sub_category.skills.all %}
                                     <div class="skill category" data-id="{{ skill.id }}">
                                         <p> - {{ skill.name }}</p>
-                                        <div class="edit_delete_button">
-                                            <button type="button">edit</button>
-                                            <button type="button">delete</button>
-                                        </div>
+                                        <button class="category_delete_button" type="button">delete</button>
                                     </div>
                                 {% endfor %}
                             {% endfor %}
@@ -49,17 +41,29 @@
             </div>
         </div>
     </div>
-    <div class="edit_contaner">
-        <div class="edit_main_category_contaner">
-            <form method="post">
+    <div class="edit_create_container">
+        <div class="edit_about_contaner">
+            <form class="edit_about_form" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="item_id" value="">
                 <input type="hidden" name="type" value="">
                 <div class="field">
                     <label>カテゴリー名</label>
                     <input type="text" name="name" value="">
+                    <select name="main_category" style="display: none;">
+                        {% for main_cat in about_data.main_categories %}
+                            <option value="{{ main_cat.id }}:{{ main_cat.name }}">{{ main_cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="sub_category" style="display: none;">
+                        {% for sub_cat in about_data.sub_categories %}
+                            <option value="{{ sub_cat.id }}:{{ sub_cat.name }}">{{ sub_cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="checkbox" name="is_active">
+                    <input type="hidden" name="order" value="">
                 </div>
-                <button type="submit">更新</button>
+                <button type="submit" class="update_button">更新</button>
             </form>
         </div>
         <div class="create_about_container">
